@@ -18,12 +18,12 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package org.sonar.plugins.java.api.query.operation.core
+package org.sonarsource.astquery.operation.core
 
-import org.sonar.plugins.java.api.query.ManySelector
-import org.sonar.plugins.java.api.query.OptionalSelector
-import org.sonar.plugins.java.api.query.SingleSelector
-import org.sonar.plugins.java.api.query.graph.ir.IdentifiedFunction
+import org.sonarsource.astquery.ir.IdentifiedFunction
+import org.sonarsource.astquery.operation.builder.ManySelector
+import org.sonarsource.astquery.operation.builder.OptionalSelector
+import org.sonarsource.astquery.operation.builder.SingleSelector
 
 fun <FROM, TO> SingleSelector<FROM>.mapNonNull(mapper: IdentifiedFunction<(FROM) -> TO?>) =
   map(mapper).filterNonNull()

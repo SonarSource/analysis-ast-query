@@ -18,26 +18,26 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package org.sonar.plugins.java.api.query
+package org.sonarsource.astquery.operation.builder
 
-import org.sonar.plugins.java.api.query.graph.ir.nodes.IRNode
-import org.sonar.plugins.java.api.query.operation.Operation1to1
-import org.sonar.plugins.java.api.query.operation.Operation1toOptional
-import org.sonar.plugins.java.api.query.operation.OperationNto1
-import org.sonar.plugins.java.api.query.operation.composite.orElseNull
+import org.sonarsource.astquery.ir.nodes.IRNode
+import org.sonarsource.astquery.operation.Operation1to1
+import org.sonarsource.astquery.operation.Operation1toOptional
+import org.sonarsource.astquery.operation.OperationNto1
+import org.sonarsource.astquery.operation.composite.orElseNull
 
 class OptionalSelector<CUR>(
   current: IRNode<*, out CUR>
 ) : Selector<CUR, CUR?>(current) {
 
   fun <TO> apply(op: Operation1to1<in CUR, TO>): OptionalSelector<TO> =
-    OptionalSelector(op.applyTo(current))
+    OptionalSelector(op.applyTo(irNode))
 
   fun <TO> apply(op: Operation1toOptional<in CUR, TO>): OptionalSelector<TO> =
-    OptionalSelector(op.applyTo(current))
+    OptionalSelector(op.applyTo(irNode))
 
   fun <TO> apply(op: OperationNto1<in CUR, TO>): SingleSelector<TO> =
-    SingleSelector(op.applyTo(current))
+    SingleSelector(op.applyTo(irNode))
 
   override fun toOutput(current: List<CUR>): CUR? = current.singleOrNull()
 

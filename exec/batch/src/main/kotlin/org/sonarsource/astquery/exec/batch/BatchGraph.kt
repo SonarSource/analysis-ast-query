@@ -20,8 +20,8 @@
 
 package org.sonarsource.astquery.exec.batch
 
-import org.sonar.plugins.java.api.query.graph.exec.ExecutionContext
-import org.sonar.plugins.java.api.query.graph.exec.ExecutionGraph
+import org.sonarsource.astquery.exec.ExecutionContext
+import org.sonarsource.astquery.exec.ExecutionGraph
 
 class BatchGraph<IN>(
   val root: BatchNode<IN, IN>

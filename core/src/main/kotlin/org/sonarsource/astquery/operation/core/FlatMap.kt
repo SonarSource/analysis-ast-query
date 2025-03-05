@@ -18,17 +18,17 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package org.sonar.plugins.java.api.query.operation.core
+package org.sonarsource.astquery.operation.core
 
-import org.sonar.plugins.java.api.query.ManySelector
-import org.sonar.plugins.java.api.query.Selector
-import org.sonar.plugins.java.api.query.graph.ir.IdentifiedFunction
-import org.sonar.plugins.java.api.query.graph.ir.IdentifiedLambda
-import org.sonar.plugins.java.api.query.graph.ir.nodes.FlatMap
-import org.sonar.plugins.java.api.query.graph.ir.nodes.IRNode
-import org.sonar.plugins.java.api.query.graph.ir.nodes.ParentNode
-import org.sonar.plugins.java.api.query.operation.Operation1toN
-import org.sonar.plugins.java.api.query.operation.idFunction
+import org.sonarsource.astquery.ir.IdentifiedFunction
+import org.sonarsource.astquery.ir.IdentifiedLambda
+import org.sonarsource.astquery.ir.nodes.FlatMap
+import org.sonarsource.astquery.ir.nodes.IRNode
+import org.sonarsource.astquery.ir.nodes.ParentNode
+import org.sonarsource.astquery.operation.Operation1toN
+import org.sonarsource.astquery.operation.builder.ManySelector
+import org.sonarsource.astquery.operation.builder.Selector
+import org.sonarsource.astquery.operation.idFunction
 
 private typealias IdFunc<T> = IdentifiedFunction<T>
 private typealias IdLambda<T> = IdentifiedLambda<T>

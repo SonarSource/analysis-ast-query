@@ -1,15 +1,15 @@
-package org.sonar.plugins.java.api.query.operation.composite
+package org.sonarsource.astquery.operation.composite
 
-import org.sonar.plugins.java.api.query.ManySelector
-import org.sonar.plugins.java.api.query.OptionalSelector
-import org.sonar.plugins.java.api.query.SingleSelector
-import org.sonar.plugins.java.api.query.graph.ir.IdentifiedFunction
-import org.sonar.plugins.java.api.query.graph.ir.IdentifiedFunction.Companion.fromMember
-import org.sonar.plugins.java.api.query.graph.ir.IdentifiedLambda
-import org.sonar.plugins.java.api.query.operation.core.flatMap
-import org.sonar.plugins.java.api.query.operation.core.flatMapSeq
-import org.sonar.plugins.java.api.query.operation.core.map
-import org.sonar.plugins.java.api.query.operation.core.mapNonNull
+import org.sonarsource.astquery.operation.builder.ManySelector
+import org.sonarsource.astquery.operation.builder.OptionalSelector
+import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.ir.IdentifiedFunction
+import org.sonarsource.astquery.ir.IdentifiedFunction.Companion.fromMember
+import org.sonarsource.astquery.ir.IdentifiedLambda
+import org.sonarsource.astquery.operation.core.flatMap
+import org.sonarsource.astquery.operation.core.flatMapSeq
+import org.sonarsource.astquery.operation.core.map
+import org.sonarsource.astquery.operation.core.mapNonNull
 import kotlin.reflect.KFunction1
 import kotlin.reflect.KProperty1
 

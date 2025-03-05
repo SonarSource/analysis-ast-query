@@ -1,7 +1,7 @@
-package org.sonar.plugins.java.api.query.graph.visual
+package org.sonarsource.astquery.graph.visual
 
-import org.sonar.plugins.java.api.query.graph.GraphUtils
-import org.sonar.plugins.java.api.query.graph.Node
+import org.sonarsource.astquery.graph.GraphUtils
+import org.sonarsource.astquery.graph.Node
 import kotlin.random.Random
 
 object Visualisation {

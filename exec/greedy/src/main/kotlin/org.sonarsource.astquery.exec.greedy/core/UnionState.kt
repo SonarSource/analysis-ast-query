@@ -1,9 +1,9 @@
-package org.sonar.plugins.java.api.query.graph.exec.greedy.core
+package org.sonarsource.astquery.exec.greedy.core
 
-import org.sonar.plugins.java.api.query.graph.ScopeId
-import org.sonar.plugins.java.api.query.graph.exec.greedy.Signal
-import org.sonar.plugins.java.api.query.graph.exec.greedy.Signal.BatchEnd
-import org.sonar.plugins.java.api.query.graph.exec.greedy.Signal.Value
+import org.sonarsource.astquery.graph.ScopeId
+import org.sonarsource.astquery.exec.greedy.Signal
+import org.sonarsource.astquery.exec.greedy.Signal.BatchEnd
+import org.sonarsource.astquery.exec.greedy.Signal.Value
 
 enum class Side(val value: String) {
   LEFT("left"), RIGHT("right")

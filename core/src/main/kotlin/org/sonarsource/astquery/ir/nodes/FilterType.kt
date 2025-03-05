@@ -18,15 +18,15 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package org.sonar.plugins.java.api.query.graph.ir.nodes
+package org.sonarsource.astquery.ir.nodes
 
-import org.sonar.plugins.java.api.query.graph.visual.FlowType
-import org.sonar.plugins.java.api.query.graph.visual.VisualInfo
+import org.sonarsource.astquery.graph.visual.FlowType
+import org.sonarsource.astquery.graph.visual.VisualInfo
 import kotlin.reflect.KClass
 
 class FilterType<IN, OUT : IN & Any>(
-  parent: ParentNode<IN>,
-  val types: Set<KClass<out OUT>>
+    parent: ParentNode<IN>,
+    val types: Set<KClass<out OUT>>
 ) : IRNode<IN, OUT>(parent) {
 
   override val isSink = false

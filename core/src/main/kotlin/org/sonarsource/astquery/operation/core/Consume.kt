@@ -18,16 +18,16 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package org.sonar.plugins.java.api.query.operation.core
+package org.sonarsource.astquery.operation.core
 
-import org.sonar.plugins.java.api.query.ManySelector
-import org.sonar.plugins.java.api.query.OptionalSelector
-import org.sonar.plugins.java.api.query.SingleSelector
-import org.sonar.plugins.java.api.query.graph.exec.ExecutionContext
-import org.sonar.plugins.java.api.query.graph.ir.nodes.Consumer
-import org.sonar.plugins.java.api.query.graph.ir.nodes.IRNode
-import org.sonar.plugins.java.api.query.graph.ir.nodes.ParentNode
-import org.sonar.plugins.java.api.query.operation.Operation1to1
+import org.sonarsource.astquery.exec.ExecutionContext
+import org.sonarsource.astquery.ir.nodes.Consumer
+import org.sonarsource.astquery.ir.nodes.IRNode
+import org.sonarsource.astquery.ir.nodes.ParentNode
+import org.sonarsource.astquery.operation.Operation1to1
+import org.sonarsource.astquery.operation.builder.ManySelector
+import org.sonarsource.astquery.operation.builder.OptionalSelector
+import org.sonarsource.astquery.operation.builder.SingleSelector
 
 class ConsumeOperation<C>(
   private val consume: (ExecutionContext, C) -> Unit

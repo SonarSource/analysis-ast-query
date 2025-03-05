@@ -18,9 +18,9 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package org.sonar.plugins.java.api.query.graph.exec.greedy
+package org.sonarsource.astquery.exec.greedy
 
-import org.sonar.plugins.java.api.query.graph.ScopeId
+import org.sonarsource.astquery.graph.ScopeId
 
 sealed interface Signal<out T> {
   data class Value<out T>(val value: T) : Signal<T>

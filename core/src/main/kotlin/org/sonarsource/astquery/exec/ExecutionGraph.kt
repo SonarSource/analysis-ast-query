@@ -18,11 +18,11 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package org.sonar.plugins.java.api.query.graph.exec
+package org.sonarsource.astquery.exec
 
-import org.sonar.plugins.java.api.query.graph.Graph
-import org.sonar.plugins.java.api.query.graph.Node
+interface Executable<INPUT> {
 
-abstract class ExecutionGraph<N : Node<N>, IN>(root: N) : Graph<N>(root) {
-  abstract fun execute(context: ExecutionContext, input: IN)
+  fun execute(context: ExecutionContext, input: INPUT)
+
+  fun isEmpty(): Boolean
 }

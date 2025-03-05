@@ -18,7 +18,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package org.sonar.plugins.java.api.query.graph.exec
+package org.sonarsource.astquery.exec
 
 data class ExecutionContext(
   val test : Any = TODO()

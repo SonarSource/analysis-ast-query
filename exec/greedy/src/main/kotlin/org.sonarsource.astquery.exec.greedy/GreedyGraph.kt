@@ -18,10 +18,10 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package org.sonar.plugins.java.api.query.graph.exec.greedy
+package org.sonarsource.astquery.exec.greedy
 
-import org.sonar.plugins.java.api.query.graph.exec.ExecutionContext
-import org.sonar.plugins.java.api.query.graph.exec.ExecutionGraph
+import org.sonarsource.astquery.exec.ExecutionContext
+import org.sonarsource.astquery.exec.ExecutionGraph
 
 class GreedyGraph<IN>(
   val root: GreedyNode<IN, IN>

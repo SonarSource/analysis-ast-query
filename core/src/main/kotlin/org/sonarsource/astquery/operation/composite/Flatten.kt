@@ -1,9 +1,9 @@
-package org.sonar.plugins.java.api.query.operation.composite
+package org.sonarsource.astquery.operation.composite
 
-import org.sonar.plugins.java.api.query.Selector
-import org.sonar.plugins.java.api.query.graph.ir.identity
-import org.sonar.plugins.java.api.query.operation.core.flatMap
-import org.sonar.plugins.java.api.query.operation.core.flatMapSeq
+import org.sonarsource.astquery.operation.builder.Selector
+import org.sonarsource.astquery.ir.identity
+import org.sonarsource.astquery.operation.core.flatMap
+import org.sonarsource.astquery.operation.core.flatMapSeq
 
 
 private fun <T> flattenFunction() = identity<T>("Flatten")

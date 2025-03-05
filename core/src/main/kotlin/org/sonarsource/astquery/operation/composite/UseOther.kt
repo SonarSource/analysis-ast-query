@@ -2,15 +2,16 @@ package org.sonar.plugins.java.api.query.operation.composite
 
 import org.sonarsource.astquery.operation.Droppable.Drop
 import org.sonarsource.astquery.operation.Droppable.Keep
-import org.sonar.plugins.java.api.query.ManySelector
-import org.sonar.plugins.java.api.query.OptionalSelector
-import org.sonar.plugins.java.api.query.SingleSelector
-import org.sonar.plugins.java.api.query.graph.ir.IdentifiedLambda
-import org.sonar.plugins.java.api.query.operation.core.aggregate
-import org.sonar.plugins.java.api.query.operation.core.combine
-import org.sonar.plugins.java.api.query.operation.core.combineFilter
-import org.sonar.plugins.java.api.query.operation.core.filterNonNull
-import org.sonar.plugins.java.api.query.operation.core.map
+import org.sonarsource.astquery.operation.builder.ManySelector
+import org.sonarsource.astquery.operation.builder.OptionalSelector
+import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.ir.IdentifiedLambda
+import org.sonarsource.astquery.operation.composite.flatten
+import org.sonarsource.astquery.operation.core.aggregate
+import org.sonarsource.astquery.operation.core.combine
+import org.sonarsource.astquery.operation.core.combineFilter
+import org.sonarsource.astquery.operation.core.map
+import org.sonarsource.astquery.operation.core.filterNonNull
 
 fun <T1, T2> ifPresentUse() = IdentifiedLambda("ifPresentUse", "IfPresentUse") { value: T1, other: List<T2> -> if (other.isNotEmpty()) Keep(value) else Drop }
 

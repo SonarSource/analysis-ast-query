@@ -18,15 +18,15 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package org.sonar.plugins.java.api.query.graph.exec.greedy.core
+package org.sonarsource.astquery.exec.greedy.core
 
-import org.sonar.plugins.java.api.query.graph.NodeId
-import org.sonar.plugins.java.api.query.graph.exec.ExecutionContext
-import org.sonar.plugins.java.api.query.graph.exec.greedy.GreedyNode
-import org.sonar.plugins.java.api.query.graph.exec.greedy.ChildNode
-import org.sonar.plugins.java.api.query.graph.exec.greedy.Signal.BatchEnd
-import org.sonar.plugins.java.api.query.graph.visual.FlowType
-import org.sonar.plugins.java.api.query.graph.visual.VisualInfo
+import org.sonarsource.astquery.graph.NodeId
+import org.sonarsource.astquery.exec.ExecutionContext
+import org.sonarsource.astquery.exec.greedy.GreedyNode
+import org.sonarsource.astquery.exec.greedy.ChildNode
+import org.sonarsource.astquery.exec.greedy.Signal.BatchEnd
+import org.sonarsource.astquery.graph.visual.FlowType
+import org.sonarsource.astquery.graph.visual.VisualInfo
 
 const val ROOT_SCOPE_ID = -1
 

@@ -18,14 +18,14 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package org.sonar.plugins.java.api.query.operation.composite
+package org.sonarsource.astquery.operation.composite
 
-import org.sonar.plugins.java.api.query.ManySelector
-import org.sonar.plugins.java.api.query.OptionalSelector
-import org.sonar.plugins.java.api.query.SingleSelector
-import org.sonar.plugins.java.api.query.graph.ir.ExistFunction
-import org.sonar.plugins.java.api.query.graph.ir.NotExistFunction
-import org.sonar.plugins.java.api.query.operation.core.aggregate
+import org.sonarsource.astquery.operation.builder.ManySelector
+import org.sonarsource.astquery.operation.builder.OptionalSelector
+import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.ir.ExistFunction
+import org.sonarsource.astquery.ir.NotExistFunction
+import org.sonarsource.astquery.operation.core.aggregate
 
 fun <CUR> OptionalSelector<CUR>.isPresent(): SingleSelector<Boolean> =
   aggregate(ExistFunction)

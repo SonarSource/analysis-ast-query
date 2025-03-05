@@ -1,6 +1,6 @@
-package org.sonar.plugins.java.api.query.graph
+package org.sonarsource.astquery.graph
 
-import org.sonar.plugins.java.api.query.graph.visual.VisualInfo
+import org.sonarsource.astquery.graph.visual.VisualInfo
 
 /**
  * Interface common to all graph nodes

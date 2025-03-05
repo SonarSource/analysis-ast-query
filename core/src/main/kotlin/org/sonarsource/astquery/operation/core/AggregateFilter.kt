@@ -18,17 +18,17 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package org.sonar.plugins.java.api.query.operation.core
+package org.sonarsource.astquery.operation.core
 
 import org.sonarsource.astquery.operation.Droppable
-import org.sonar.plugins.java.api.query.ManySelector
-import org.sonar.plugins.java.api.query.OptionalSelector
-import org.sonar.plugins.java.api.query.graph.ir.*
-import org.sonar.plugins.java.api.query.graph.ir.nodes.AggregateDrop
-import org.sonar.plugins.java.api.query.graph.ir.nodes.IRNode
-import org.sonar.plugins.java.api.query.graph.ir.nodes.ParentNode
-import org.sonar.plugins.java.api.query.operation.OperationNtoOptional
-import org.sonar.plugins.java.api.query.operation.idFunction
+import org.sonarsource.astquery.ir.*
+import org.sonarsource.astquery.ir.nodes.AggregateDrop
+import org.sonarsource.astquery.ir.nodes.IRNode
+import org.sonarsource.astquery.ir.nodes.ParentNode
+import org.sonarsource.astquery.operation.OperationNtoOptional
+import org.sonarsource.astquery.operation.builder.ManySelector
+import org.sonarsource.astquery.operation.builder.OptionalSelector
+import org.sonarsource.astquery.operation.idFunction
 
 class AggregateDropOperation<FROM, TO>(
   private val mapper: IdentifiedFunction<(List<FROM>) -> Droppable<TO>>

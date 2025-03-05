@@ -1,9 +1,9 @@
-package org.sonar.plugins.java.api.query.graph.ir.nodes
+package org.sonarsource.astquery.ir.nodes
 
-import org.sonar.plugins.java.api.query.graph.ScopeId
+import org.sonarsource.astquery.graph.ScopeId
 import org.sonarsource.astquery.graph.TranslationTable
-import org.sonar.plugins.java.api.query.graph.visual.FlowType
-import org.sonar.plugins.java.api.query.graph.visual.VisualInfo
+import org.sonarsource.astquery.graph.visual.FlowType
+import org.sonarsource.astquery.graph.visual.VisualInfo
 import kotlin.collections.Map
 
 var nextScopeId = 0

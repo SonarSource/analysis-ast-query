@@ -1,17 +1,17 @@
-package org.sonar.plugins.java.api.query.operation.core
+package org.sonarsource.astquery.operation.core
 
-import org.sonar.plugins.java.api.query.ManySelector
-import org.sonar.plugins.java.api.query.OptionalSelector
-import org.sonar.plugins.java.api.query.Selector
-import org.sonar.plugins.java.api.query.SingleSelector
-import org.sonar.plugins.java.api.query.graph.ir.IdentifiedFunction
-import org.sonar.plugins.java.api.query.graph.ir.IdentifiedLambda
-import org.sonar.plugins.java.api.query.graph.ir.nodes.Combine
-import org.sonar.plugins.java.api.query.graph.ir.nodes.IRNode
-import org.sonar.plugins.java.api.query.graph.ir.nodes.ParentNode
-import org.sonar.plugins.java.api.query.graph.ir.nodes.Scope
-import org.sonar.plugins.java.api.query.graph.ir.nodes.UnScope
-import org.sonar.plugins.java.api.query.operation.Operation1to1
+import org.sonarsource.astquery.operation.builder.ManySelector
+import org.sonarsource.astquery.operation.builder.OptionalSelector
+import org.sonarsource.astquery.operation.builder.Selector
+import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.ir.IdentifiedFunction
+import org.sonarsource.astquery.ir.IdentifiedLambda
+import org.sonarsource.astquery.ir.nodes.Combine
+import org.sonarsource.astquery.ir.nodes.IRNode
+import org.sonarsource.astquery.ir.nodes.ParentNode
+import org.sonarsource.astquery.ir.nodes.Scope
+import org.sonarsource.astquery.ir.nodes.UnScope
+import org.sonarsource.astquery.operation.Operation1to1
 
 class GroupWithScopeOperation<FROM, GROUPED, TO>(
   val groupProducer: (SingleSelector<FROM>) -> Selector<*, GROUPED>,
@@ -20,7 +20,7 @@ class GroupWithScopeOperation<FROM, GROUPED, TO>(
   override fun applyTo(parent: ParentNode<FROM>): IRNode<*, out TO> {
     val scope = Scope(parent)
     val group = groupProducer(SingleSelector(scope)).toSingle()
-    val combine = Combine(scope, group.current, grouping)
+    val combine = Combine(scope, group.irNode, grouping)
     return UnScope(combine, setOf(scope))
   }
 }

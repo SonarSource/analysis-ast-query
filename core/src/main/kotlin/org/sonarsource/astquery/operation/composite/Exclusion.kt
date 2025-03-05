@@ -18,17 +18,17 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package org.sonar.plugins.java.api.query.operation.composite
+package org.sonarsource.astquery.operation.composite
 
 import org.sonarsource.astquery.operation.Droppable
 import org.sonarsource.astquery.operation.Droppable.Drop
 import org.sonarsource.astquery.operation.Droppable.Keep
-import org.sonar.plugins.java.api.query.ManySelector
-import org.sonar.plugins.java.api.query.OptionalSelector
-import org.sonar.plugins.java.api.query.SingleSelector
-import org.sonar.plugins.java.api.query.graph.ir.IdentifiedFunction
-import org.sonar.plugins.java.api.query.graph.ir.IdentifiedLambda
-import org.sonar.plugins.java.api.query.operation.core.combineFilter
+import org.sonarsource.astquery.operation.builder.ManySelector
+import org.sonarsource.astquery.operation.builder.OptionalSelector
+import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.ir.IdentifiedFunction
+import org.sonarsource.astquery.ir.IdentifiedLambda
+import org.sonarsource.astquery.operation.core.combineFilter
 
 private fun <T> exclusionFunction(): IdentifiedFunction<(T, List<T>) -> Droppable<T>> =
   IdentifiedLambda("exclusion", "Exclusion") { elem: T, excluded: List<T> ->

@@ -1,4 +1,4 @@
-package org.sonar.plugins.java.api.query.graph
+package org.sonarsource.astquery.graph
 
 typealias NodeId = Int
 typealias ScopeId = Int

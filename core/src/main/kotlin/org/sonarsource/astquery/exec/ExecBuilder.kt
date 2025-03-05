@@ -1,23 +1,24 @@
 package org.sonarsource.astquery.exec
 
-import org.sonar.plugins.java.api.query.Query
-import org.sonar.plugins.java.api.query.Selector
-import org.sonar.plugins.java.api.query.graph.GraphUtils
-import org.sonar.plugins.java.api.query.graph.Node
-import org.sonar.plugins.java.api.query.graph.NodeId
+import org.sonarsource.astquery.Query
+import org.sonarsource.astquery.operation.builder.Selector
+import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.graph.GraphUtils
+import org.sonarsource.astquery.graph.Node
+import org.sonarsource.astquery.graph.NodeId
 import org.sonarsource.astquery.graph.TranslationTable
-import org.sonar.plugins.java.api.query.graph.ir.nodes.ChildNode
-import org.sonar.plugins.java.api.query.graph.ir.nodes.Combine
-import org.sonar.plugins.java.api.query.graph.ir.nodes.CombineDrop
-import org.sonar.plugins.java.api.query.graph.ir.nodes.Consumer
-import org.sonar.plugins.java.api.query.graph.ir.nodes.IRNode
-import org.sonar.plugins.java.api.query.graph.ir.nodes.Root
-import org.sonar.plugins.java.api.query.graph.ir.nodes.Scope
-import org.sonar.plugins.java.api.query.graph.ir.nodes.UnScope
+import org.sonarsource.astquery.ir.nodes.ChildNode
+import org.sonarsource.astquery.ir.nodes.Combine
+import org.sonarsource.astquery.ir.nodes.CombineDrop
+import org.sonarsource.astquery.ir.nodes.Consumer
+import org.sonarsource.astquery.ir.nodes.IRNode
+import org.sonarsource.astquery.ir.nodes.Root
+import org.sonarsource.astquery.ir.nodes.Scope
+import org.sonarsource.astquery.ir.nodes.UnScope
 
-abstract class Builder<N : Node<N>> {
+abstract class ExecBuilder<N : Node<N>> {
 
-  abstract fun <IN> build(root: Root<IN>): ExecutionGraph<N, IN>
+  abstract fun <IN> build(root: Root<IN>): Executable<IN>
 
   protected fun addScopesToCombines(root: Root<*>) {
     val applied = mutableSetOf<NodeId>()
@@ -125,30 +126,32 @@ abstract class Builder<N : Node<N>> {
     node.children.forEach { applyMergeOptimization(it) }
   }
 
-  fun <IN, END, OUT> buildQuery(root: Root<IN>, end: Selector<END, OUT>): Query<IN, OUT> {
-    return buildQuery(root, end.current, end::toOutput)
+  fun <INPUT, OUTPUT> createQuery(operations: (SingleSelector<INPUT>) -> Selector<*, OUTPUT>): Query<INPUT, OUTPUT> {
+    val root = Root<INPUT>()
+    val selector = SingleSelector(root)
+    val output = operations(selector)
+
+    return buildQuery(root, output)
   }
 
-  fun <IN, END, OUT> buildQuery(root: Root<IN>, end: IRNode<*, END>, transform: (List<END>) -> OUT): Query<IN, OUT> {
+  private fun <IN, END, OUT> buildQuery(root: Root<IN>, end: Selector<END, OUT>): Query<IN, OUT> {
 
     val table = GraphUtils.copyTree(root)
     val root = table.get(root) as Root<IN>
-    val end = table.get(end)
+    val endNode = table.get(end.irNode)
 
     val collector = Store { mutableListOf<END>() }
-      Consumer(end) { ctx, value ->
-          collector.get(ctx).add(value)
-      }
-
-    GraphUtils.removeDeadBranches(root)
+    // Create the Consumer node that will collect the results
+    Consumer(endNode) { ctx, value ->
+        collector.get(ctx).add(value)
+    }
 
     val graph = build(root)
 
     return Query { ctx, input ->
-        val execCtx = ExecutionContext(ctx)
-        graph.execute(execCtx, input)
+        graph.execute(ctx, input)
 
-        collector.get(execCtx).let(transform)
+        collector.get(ctx).let(end::toOutput)
     }
   }
 }

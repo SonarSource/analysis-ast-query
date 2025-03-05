@@ -20,26 +20,40 @@
 
 package org.sonarsource.astquery.exec.batch
 
-import org.sonarsource.astquery.exec.Builder
-import org.sonar.plugins.java.api.query.graph.NodeId
-import org.sonar.plugins.java.api.query.graph.exec.batch.core.*
-import org.sonar.plugins.java.api.query.graph.exec.batch.specialized.CountNode
-import org.sonar.plugins.java.api.query.graph.exec.batch.specialized.ExistsNode
-import org.sonar.plugins.java.api.query.graph.exec.batch.specialized.first.FirstNode
-import org.sonar.plugins.java.api.query.graph.exec.batch.specialized.first.FirstOrDefaultNode
-import org.sonar.plugins.java.api.query.graph.exec.batch.tree.FastSubtreeNode
-import org.sonar.plugins.java.api.query.graph.exec.batch.tree.TreeParentsNode
-import org.sonar.plugins.java.api.query.graph.ir.CountFunction
-import org.sonar.plugins.java.api.query.graph.ir.ExistFunction
-import org.sonar.plugins.java.api.query.graph.ir.FirstFunction
-import org.sonar.plugins.java.api.query.graph.ir.FirstOrDefaultFunction
-import org.sonar.plugins.java.api.query.graph.ir.IdentifiedLambda
-import org.sonar.plugins.java.api.query.graph.ir.NotExistFunction
-import org.sonar.plugins.java.api.query.graph.ir.SubtreeFunction
-import org.sonar.plugins.java.api.query.graph.ir.TreeParentFunction
+import org.sonarsource.astquery.exec.ExecBuilder
+import org.sonarsource.astquery.graph.NodeId
+import org.sonarsource.astquery.exec.batch.core.*
+import org.sonarsource.astquery.exec.batch.specialized.CountNode
+import org.sonarsource.astquery.exec.batch.specialized.ExistsNode
+import org.sonarsource.astquery.exec.batch.specialized.first.FirstNode
+import org.sonarsource.astquery.exec.batch.specialized.first.FirstOrDefaultNode
+import org.sonarsource.astquery.exec.batch.tree.FastSubtreeNode
+import org.sonarsource.astquery.exec.batch.tree.TreeParentsNode
+import org.sonarsource.astquery.ir.CountFunction
+import org.sonarsource.astquery.ir.ExistFunction
+import org.sonarsource.astquery.ir.FirstFunction
+import org.sonarsource.astquery.ir.FirstOrDefaultFunction
+import org.sonarsource.astquery.ir.IdentifiedLambda
+import org.sonarsource.astquery.ir.NotExistFunction
+import org.sonarsource.astquery.ir.SubtreeFunction
+import org.sonarsource.astquery.ir.TreeParentFunction
 import org.sonar.plugins.java.api.query.graph.ir.nodes.*
-import org.sonar.plugins.java.api.query.graph.ir.nodes.IRMap
+import org.sonarsource.astquery.ir.nodes.IRMap
 import org.sonar.plugins.java.api.tree.Tree
+import org.sonarsource.astquery.ir.nodes.Aggregate
+import org.sonarsource.astquery.ir.nodes.AggregateDrop
+import org.sonarsource.astquery.ir.nodes.Combine
+import org.sonarsource.astquery.ir.nodes.CombineDrop
+import org.sonarsource.astquery.ir.nodes.Consumer
+import org.sonarsource.astquery.ir.nodes.Filter
+import org.sonarsource.astquery.ir.nodes.FilterNonNull
+import org.sonarsource.astquery.ir.nodes.FilterType
+import org.sonarsource.astquery.ir.nodes.FlatMap
+import org.sonarsource.astquery.ir.nodes.IRNode
+import org.sonarsource.astquery.ir.nodes.Root
+import org.sonarsource.astquery.ir.nodes.Scope
+import org.sonarsource.astquery.ir.nodes.UnScope
+import org.sonarsource.astquery.ir.nodes.Union
 
 private typealias TranslatedMap = MutableMap<NodeId, BatchNode<*, *>>
 
@@ -47,7 +61,7 @@ private class BuildContext(
   val translated: TranslatedMap = mutableMapOf(),
 )
 
-class BatchBuilder : Builder<BatchNode<*, *>>() {
+class BatchBuilder : ExecBuilder<BatchNode<*, *>>() {
 
   override fun <IN> build(root: Root<IN>): BatchGraph<IN> {
     untangleScopes(root)

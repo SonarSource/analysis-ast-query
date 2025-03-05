@@ -20,7 +20,7 @@
 
 package org.sonarsource.astquery.exec.batch
 
-import org.sonar.plugins.java.api.query.graph.ScopeId
+import org.sonarsource.astquery.graph.ScopeId
 
 sealed interface Signal<out T> {
   data class Value<T>(

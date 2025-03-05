@@ -1,4 +1,4 @@
-package org.sonar.plugins.java.api.query.graph
+package org.sonarsource.astquery.graph
 
 open class Graph<N : Node<N>>(root: N) {
   val nodes: Map<Int, N> = GraphUtils.breathFirst(root).associateBy { it.id }

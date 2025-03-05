@@ -1,16 +1,16 @@
-package org.sonar.plugins.java.api.query.graph.exec.greedy.core
+package org.sonarsource.astquery.exec.greedy.core
 
-import org.sonar.plugins.java.api.query.graph.NodeId
-import org.sonar.plugins.java.api.query.graph.ScopeId
-import org.sonar.plugins.java.api.query.graph.exec.ExecutionContext
-import org.sonar.plugins.java.api.query.graph.exec.Store
-import org.sonar.plugins.java.api.query.graph.exec.greedy.GreedyNode
-import org.sonar.plugins.java.api.query.graph.exec.greedy.ChildNode
-import org.sonar.plugins.java.api.query.graph.exec.greedy.Signal.BatchEnd
-import org.sonar.plugins.java.api.query.graph.exec.greedy.Signal.Value
-import org.sonar.plugins.java.api.query.graph.exec.greedy.core.UnionState.Base
-import org.sonar.plugins.java.api.query.graph.visual.FlowType
-import org.sonar.plugins.java.api.query.graph.visual.VisualInfo
+import org.sonarsource.astquery.graph.NodeId
+import org.sonarsource.astquery.graph.ScopeId
+import org.sonarsource.astquery.exec.ExecutionContext
+import org.sonarsource.astquery.exec.Store
+import org.sonarsource.astquery.exec.greedy.GreedyNode
+import org.sonarsource.astquery.exec.greedy.ChildNode
+import org.sonarsource.astquery.exec.greedy.Signal.BatchEnd
+import org.sonarsource.astquery.exec.greedy.Signal.Value
+import org.sonarsource.astquery.exec.greedy.core.UnionState.Base
+import org.sonarsource.astquery.graph.visual.FlowType
+import org.sonarsource.astquery.graph.visual.VisualInfo
 
 class UnionNode<IN>(
   id: NodeId,

@@ -18,21 +18,44 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package org.sonar.plugins.java.api.query.graph.exec.greedy
+package org.sonarsource.astquery.exec.greedy
 
-import org.sonar.plugins.java.api.query.graph.GraphUtils
-import org.sonar.plugins.java.api.query.graph.NodeId
-import org.sonar.plugins.java.api.query.graph.ScopeId
-import org.sonar.plugins.java.api.query.graph.exec.greedy.core.*
-import org.sonar.plugins.java.api.query.graph.exec.greedy.specialized.CountNode
-import org.sonar.plugins.java.api.query.graph.exec.greedy.specialized.ExistsNode
-import org.sonar.plugins.java.api.query.graph.exec.greedy.specialized.first.FirstNode
-import org.sonar.plugins.java.api.query.graph.exec.greedy.specialized.first.FirstOrDefaultNode
-import org.sonar.plugins.java.api.query.graph.exec.greedy.tree.FastSubtreeNode
-import org.sonar.plugins.java.api.query.graph.exec.greedy.tree.TreeParentsNode
+import org.sonarsource.astquery.graph.GraphUtils
+import org.sonarsource.astquery.graph.NodeId
+import org.sonarsource.astquery.graph.ScopeId
+import org.sonarsource.astquery.exec.greedy.core.*
+import org.sonarsource.astquery.exec.greedy.specialized.CountNode
+import org.sonarsource.astquery.exec.greedy.specialized.ExistsNode
+import org.sonarsource.astquery.exec.greedy.specialized.first.FirstNode
+import org.sonarsource.astquery.exec.greedy.specialized.first.FirstOrDefaultNode
+import org.sonarsource.astquery.exec.greedy.tree.FastSubtreeNode
+import org.sonarsource.astquery.exec.greedy.tree.TreeParentsNode
 import org.sonar.plugins.java.api.query.graph.ir.*
 import org.sonar.plugins.java.api.query.graph.ir.nodes.*
-import org.sonarsource.astquery.exec.Builder
+import org.sonarsource.astquery.exec.ExecBuilder
+import org.sonarsource.astquery.ir.CountFunction
+import org.sonarsource.astquery.ir.ExistFunction
+import org.sonarsource.astquery.ir.FirstFunction
+import org.sonarsource.astquery.ir.FirstOrDefaultFunction
+import org.sonarsource.astquery.ir.IdentifiedLambda
+import org.sonarsource.astquery.ir.NotExistFunction
+import org.sonarsource.astquery.ir.SubtreeFunction
+import org.sonarsource.astquery.ir.TreeParentFunction
+import org.sonarsource.astquery.ir.nodes.Aggregate
+import org.sonarsource.astquery.ir.nodes.AggregateDrop
+import org.sonarsource.astquery.ir.nodes.Combine
+import org.sonarsource.astquery.ir.nodes.CombineDrop
+import org.sonarsource.astquery.ir.nodes.Consumer
+import org.sonarsource.astquery.ir.nodes.Filter
+import org.sonarsource.astquery.ir.nodes.FilterNonNull
+import org.sonarsource.astquery.ir.nodes.FilterType
+import org.sonarsource.astquery.ir.nodes.FlatMap
+import org.sonarsource.astquery.ir.nodes.IRMap
+import org.sonarsource.astquery.ir.nodes.IRNode
+import org.sonarsource.astquery.ir.nodes.Root
+import org.sonarsource.astquery.ir.nodes.Scope
+import org.sonarsource.astquery.ir.nodes.UnScope
+import org.sonarsource.astquery.ir.nodes.Union
 
 private typealias TranslatedMap = MutableMap<NodeId, GreedyNode<*, *>>
 
@@ -40,7 +63,7 @@ private class BuildContext(
   val translated: TranslatedMap = mutableMapOf(),
 )
 
-class GreedyBuilder : Builder<GreedyNode<*, *>>() {
+class GreedyBuilder : ExecBuilder<GreedyNode<*, *>>() {
 
   override fun <IN> build(root: Root<IN>): GreedyGraph<IN> {
     GraphUtils.removeDeadBranches(root)

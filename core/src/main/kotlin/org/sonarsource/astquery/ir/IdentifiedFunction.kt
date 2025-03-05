@@ -1,7 +1,6 @@
-package org.sonar.plugins.java.api.query.graph.ir
+package org.sonarsource.astquery.ir
 
 import org.sonarsource.astquery.operation.Droppable
-import org.sonar.plugins.java.api.tree.Tree
 import kotlin.reflect.KClass
 import kotlin.reflect.KFunction1
 import kotlin.reflect.KProperty1
@@ -77,12 +76,3 @@ class FirstFunction<T> : IdentifiedNodeFunction<(List<T>) -> Droppable<T>>("Firs
 }
 data class FirstOrDefaultFunction<T>(val default: T) : IdentifiedNodeFunction<(List<T>) -> T>("FirstOrDefault($default)")
 data object CountFunction : IdentifiedNodeFunction<(List<*>) -> Int>("Count")
-
-data class TreeIsOfKindFunction(val kinds: Set<Tree.Kind>) : IdentifiedNodeFunction<(Tree) -> Boolean>("Tree.IsOfKind")
-data object TreeParentFunction : IdentifiedNodeFunction<(Tree) -> Sequence<Tree>>("Tree.Parent")
-data class SubtreeFunction(
-  val includeRoot: Boolean = false,
-  val stopAt: Set<Tree.Kind>
-) : IdentifiedNodeFunction<(Tree) -> Sequence<Tree>>(
-  if (includeRoot) "Tree" else "SubTree" + stopAt.joinToString(", ", "(", ")")
-)

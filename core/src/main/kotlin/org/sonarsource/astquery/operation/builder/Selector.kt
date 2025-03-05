@@ -18,17 +18,17 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package org.sonar.plugins.java.api.query
+package org.sonarsource.astquery.operation.builder
 
-import org.sonar.plugins.java.api.query.graph.ir.nodes.IRNode
-import org.sonar.plugins.java.api.query.operation.Operation1toN
+import org.sonarsource.astquery.ir.nodes.IRNode
+import org.sonarsource.astquery.operation.Operation1toN
 
 sealed class Selector<CUR, OUT>(
-  val current: IRNode<*, out CUR>
+  val irNode: IRNode<*, out CUR>
 ) {
 
   fun <TO> apply(op: Operation1toN<in CUR, TO>): ManySelector<TO> =
-    ManySelector(op.applyTo(current))
+    ManySelector(op.applyTo(irNode))
 
   abstract fun toOutput(current: List<CUR>): OUT
 

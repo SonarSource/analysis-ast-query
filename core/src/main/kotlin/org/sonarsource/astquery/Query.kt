@@ -18,23 +18,11 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package org.sonar.plugins.java.api.query
+package org.sonarsource.astquery
 
-import org.sonar.plugins.java.api.JavaFileScannerContext
-import org.sonar.plugins.java.api.query.graph.exec.greedy.GreedyBuilder
-import org.sonar.plugins.java.api.query.graph.ir.nodes.Root
+import org.sonarsource.astquery.exec.ExecutionContext
 
 fun interface Query<in INPUT, out OUTPUT> {
 
   fun execute(context: ExecutionContext, input: INPUT): OUTPUT
-
-  companion object {
-    fun <INPUT, OUTPUT> of(builder: (SingleSelector<INPUT>) -> Selector<*, OUTPUT>): Query<INPUT, OUTPUT> {
-      val root = Root<INPUT>()
-      val selector = SingleSelector(root)
-      val output = builder(selector)
-
-      return GreedyBuilder().buildQuery(root, output)
-    }
-  }
 }

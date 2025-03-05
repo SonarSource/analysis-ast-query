@@ -18,15 +18,15 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package org.sonar.plugins.java.api.query.graph.ir.nodes
+package org.sonarsource.astquery.ir.nodes
 
-import org.sonar.plugins.java.api.query.graph.ir.IdentifiedFunction
-import org.sonar.plugins.java.api.query.graph.visual.FlowType
-import org.sonar.plugins.java.api.query.graph.visual.VisualInfo
+import org.sonarsource.astquery.ir.IdentifiedFunction
+import org.sonarsource.astquery.graph.visual.FlowType
+import org.sonarsource.astquery.graph.visual.VisualInfo
 
 class FlatMap<IN, OUT>(
-  parent: ParentNode<IN>,
-  val mapper: IdentifiedFunction<(IN) -> Sequence<OUT>>
+    parent: ParentNode<IN>,
+    val mapper: IdentifiedFunction<(IN) -> Sequence<OUT>>
 ) : IRNode<IN, OUT>(parent) {
 
   override val isSink = false

@@ -18,12 +18,12 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package org.sonar.plugins.java.api.query.operation
+package org.sonarsource.astquery.operation
 
-import org.sonar.plugins.java.api.query.graph.ir.IdentifiedLambda
-import org.sonar.plugins.java.api.query.graph.ir.OpId
-import org.sonar.plugins.java.api.query.graph.ir.nodes.IRNode
-import org.sonar.plugins.java.api.query.graph.ir.nodes.ParentNode
+import org.sonarsource.astquery.ir.IdentifiedLambda
+import org.sonarsource.astquery.ir.OpId
+import org.sonarsource.astquery.ir.nodes.IRNode
+import org.sonarsource.astquery.ir.nodes.ParentNode
 
 fun interface Operation1to1<FROM, TO> {
   fun applyTo(parent: ParentNode<FROM>): IRNode<*, out TO>

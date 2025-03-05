@@ -1,8 +1,8 @@
 package org.sonarsource.astquery.graph
 
-import org.sonar.plugins.java.api.query.graph.ir.nodes.ChildNode
-import org.sonar.plugins.java.api.query.graph.ir.nodes.IRNode
-import org.sonar.plugins.java.api.query.graph.ir.nodes.ParentNode
+import org.sonarsource.astquery.ir.nodes.ChildNode
+import org.sonarsource.astquery.ir.nodes.IRNode
+import org.sonarsource.astquery.ir.nodes.ParentNode
 
 class TranslationTable {
 

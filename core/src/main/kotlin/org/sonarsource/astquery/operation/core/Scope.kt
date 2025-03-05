@@ -1,17 +1,17 @@
-package org.sonar.plugins.java.api.query.operation.core
+package org.sonarsource.astquery.operation.core
 
-import org.sonar.plugins.java.api.query.ManySelector
-import org.sonar.plugins.java.api.query.OptionalSelector
-import org.sonar.plugins.java.api.query.Selector
-import org.sonar.plugins.java.api.query.SingleSelector
-import org.sonar.plugins.java.api.query.graph.GraphUtils
-import org.sonar.plugins.java.api.query.graph.ir.nodes.IRNode
-import org.sonar.plugins.java.api.query.graph.ir.nodes.ParentNode
-import org.sonar.plugins.java.api.query.graph.ir.nodes.Scope
-import org.sonar.plugins.java.api.query.graph.ir.nodes.UnScope
-import org.sonar.plugins.java.api.query.operation.Operation1to1
-import org.sonar.plugins.java.api.query.operation.Operation1toN
-import org.sonar.plugins.java.api.query.operation.Operation1toOptional
+import org.sonarsource.astquery.graph.GraphUtils
+import org.sonarsource.astquery.ir.nodes.IRNode
+import org.sonarsource.astquery.ir.nodes.ParentNode
+import org.sonarsource.astquery.ir.nodes.Scope
+import org.sonarsource.astquery.ir.nodes.UnScope
+import org.sonarsource.astquery.operation.builder.ManySelector
+import org.sonarsource.astquery.operation.builder.OptionalSelector
+import org.sonarsource.astquery.operation.builder.Selector
+import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.operation.Operation1to1
+import org.sonarsource.astquery.operation.Operation1toN
+import org.sonarsource.astquery.operation.Operation1toOptional
 
 typealias Single<CUR> = SingleSelector<CUR>
 typealias Option<CUR> = OptionalSelector<CUR>
@@ -25,7 +25,7 @@ private fun <CUR, TO> createScope(
   val end = builder(builderInput)
 
   val scope = Scope(from)
-  val unscope = UnScope(end.current, scope)
+  val unscope = UnScope(end.irNode, scope)
 
   GraphUtils.copySubTree(from, scope, unscope)
 

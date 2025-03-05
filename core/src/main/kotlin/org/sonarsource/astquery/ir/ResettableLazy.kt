@@ -18,7 +18,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package org.sonar.plugins.java.api.query.graph.ir
+package org.sonarsource.astquery.ir
 
 class ResettableLazy<T : Any>(
   private val initializer: () -> T,

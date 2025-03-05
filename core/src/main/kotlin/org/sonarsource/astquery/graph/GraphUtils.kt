@@ -1,8 +1,7 @@
-package org.sonar.plugins.java.api.query.graph
+package org.sonarsource.astquery.graph
 
-import org.sonarsource.astquery.graph.TranslationTable
-import org.sonar.plugins.java.api.query.graph.ir.nodes.IRNode
-import org.sonar.plugins.java.api.query.graph.ir.nodes.Root
+import org.sonarsource.astquery.ir.nodes.IRNode
+import org.sonarsource.astquery.ir.nodes.Root
 
 object GraphUtils {
 

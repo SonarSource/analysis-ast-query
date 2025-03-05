@@ -18,14 +18,14 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package org.sonar.plugins.java.api.query.operation.composite
+package org.sonarsource.astquery.operation.composite
 
-import org.sonar.plugins.java.api.query.ManySelector
-import org.sonar.plugins.java.api.query.OptionalSelector
-import org.sonar.plugins.java.api.query.SingleSelector
-import org.sonar.plugins.java.api.query.graph.ir.IdentifiedLambda
-import org.sonar.plugins.java.api.query.operation.core.combine
-import org.sonar.plugins.java.api.query.operation.core.map
+import org.sonarsource.astquery.operation.builder.ManySelector
+import org.sonarsource.astquery.operation.builder.OptionalSelector
+import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.ir.IdentifiedLambda
+import org.sonarsource.astquery.operation.core.combine
+import org.sonarsource.astquery.operation.core.map
 
 private fun <T> constantComparator(constant: T, comparator: IdentifiedLambda<(T, T) -> Boolean>) =
   IdentifiedLambda(

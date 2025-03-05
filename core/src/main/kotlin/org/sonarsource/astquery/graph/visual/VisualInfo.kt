@@ -1,4 +1,4 @@
-package org.sonar.plugins.java.api.query.graph.visual
+package org.sonarsource.astquery.graph.visual
 
 data class VisualInfo(
   val id: String,

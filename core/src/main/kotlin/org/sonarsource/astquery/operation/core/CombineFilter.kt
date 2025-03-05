@@ -18,18 +18,18 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package org.sonar.plugins.java.api.query.operation.core
+package org.sonarsource.astquery.operation.core
 
 import org.sonarsource.astquery.operation.Droppable
-import org.sonar.plugins.java.api.query.ManySelector
-import org.sonar.plugins.java.api.query.OptionalSelector
-import org.sonar.plugins.java.api.query.SingleSelector
-import org.sonar.plugins.java.api.query.graph.ir.IdentifiedFunction
-import org.sonar.plugins.java.api.query.graph.ir.nodes.CombineDrop
-import org.sonar.plugins.java.api.query.graph.ir.nodes.IRNode
-import org.sonar.plugins.java.api.query.graph.ir.nodes.ParentNode
-import org.sonar.plugins.java.api.query.operation.Operation1toOptional
-import org.sonar.plugins.java.api.query.operation.idFunction
+import org.sonarsource.astquery.ir.IdentifiedFunction
+import org.sonarsource.astquery.ir.nodes.CombineDrop
+import org.sonarsource.astquery.ir.nodes.IRNode
+import org.sonarsource.astquery.ir.nodes.ParentNode
+import org.sonarsource.astquery.operation.Operation1toOptional
+import org.sonarsource.astquery.operation.builder.ManySelector
+import org.sonarsource.astquery.operation.builder.OptionalSelector
+import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.operation.idFunction
 
 class CombineFilterOperation<LEFT, RIGHT, OUT>(
   private val combined: SingleSelector<RIGHT>,
@@ -37,7 +37,7 @@ class CombineFilterOperation<LEFT, RIGHT, OUT>(
 ) : Operation1toOptional<LEFT, OUT> {
 
   override fun applyTo(parent: ParentNode<LEFT>): IRNode<*, out OUT> {
-    return CombineDrop(parent, combined.current, combinator)
+    return CombineDrop(parent, combined.irNode, combinator)
   }
 }
 

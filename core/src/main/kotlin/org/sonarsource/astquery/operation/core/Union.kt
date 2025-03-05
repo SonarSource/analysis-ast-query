@@ -18,16 +18,16 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package org.sonar.plugins.java.api.query.operation.core
+package org.sonarsource.astquery.operation.core
 
-import org.sonar.plugins.java.api.query.ManySelector
-import org.sonar.plugins.java.api.query.OptionalSelector
-import org.sonar.plugins.java.api.query.Selector
-import org.sonar.plugins.java.api.query.SingleSelector
-import org.sonar.plugins.java.api.query.graph.ir.nodes.IRNode
-import org.sonar.plugins.java.api.query.graph.ir.nodes.ParentNode
-import org.sonar.plugins.java.api.query.graph.ir.nodes.Union
-import org.sonar.plugins.java.api.query.operation.Operation1toN
+import org.sonarsource.astquery.ir.nodes.IRNode
+import org.sonarsource.astquery.operation.builder.ManySelector
+import org.sonarsource.astquery.operation.builder.OptionalSelector
+import org.sonarsource.astquery.operation.builder.Selector
+import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.ir.nodes.ParentNode
+import org.sonarsource.astquery.ir.nodes.Union
+import org.sonarsource.astquery.operation.Operation1toN
 
 class UnionOperation<FROM>(
   private val other: ParentNode<FROM>
@@ -39,19 +39,19 @@ class UnionOperation<FROM>(
 }
 
 infix fun <CUR : OUT, OUT> SingleSelector<CUR>.union(other: Selector<out OUT, *>): ManySelector<OUT> {
-  return apply(UnionOperation(other.current))
+  return apply(UnionOperation(other.irNode))
 }
 
 infix fun <CUR : OUT, OUT> OptionalSelector<CUR>.union(other: Selector<out OUT, *>): ManySelector<OUT> {
-  return apply(UnionOperation(other.current))
+  return apply(UnionOperation(other.irNode))
 }
 
 infix fun <CUR : OUT, OUT> ManySelector<CUR>.union(other: Selector<out OUT, *>): ManySelector<OUT> {
-  return apply(UnionOperation(other.current))
+  return apply(UnionOperation(other.irNode))
 }
 
 fun <CUR> union(vararg selectors: Selector<CUR, *>): ManySelector<CUR> {
   require(selectors.isNotEmpty()) { "At least one selector must be provided" }
 
-  return ManySelector(Union(selectors.map { it.current }.toSet()))
+  return ManySelector(Union(selectors.map { it.irNode }.toSet()))
 }

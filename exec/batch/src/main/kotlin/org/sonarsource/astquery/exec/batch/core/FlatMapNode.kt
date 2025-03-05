@@ -20,13 +20,13 @@
 
 package org.sonarsource.astquery.exec.batch.core
 
-import org.sonar.plugins.java.api.query.graph.NodeId
-import org.sonar.plugins.java.api.query.graph.exec.ExecutionContext
-import org.sonar.plugins.java.api.query.graph.exec.batch.BatchNode
-import org.sonar.plugins.java.api.query.graph.exec.batch.ChildNode
-import org.sonar.plugins.java.api.query.graph.exec.batch.Signal
-import org.sonar.plugins.java.api.query.graph.visual.FlowType
-import org.sonar.plugins.java.api.query.graph.visual.VisualInfo
+import org.sonarsource.astquery.graph.NodeId
+import org.sonarsource.astquery.exec.ExecutionContext
+import org.sonarsource.astquery.exec.batch.BatchNode
+import org.sonarsource.astquery.exec.batch.ChildNode
+import org.sonarsource.astquery.exec.batch.Signal
+import org.sonarsource.astquery.graph.visual.FlowType
+import org.sonarsource.astquery.graph.visual.VisualInfo
 
 class FlatMapNode<IN, OUT>(
   id: NodeId,

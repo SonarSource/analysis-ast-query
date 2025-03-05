@@ -20,11 +20,11 @@
 
 package org.sonarsource.astquery.exec.batch
 
-import org.sonar.plugins.java.api.query.graph.Node
-import org.sonar.plugins.java.api.query.graph.NodeId
-import org.sonar.plugins.java.api.query.graph.exec.ExecutionContext
-import org.sonar.plugins.java.api.query.graph.visual.FlowType
-import org.sonar.plugins.java.api.query.graph.visual.VisualInfo
+import org.sonarsource.astquery.graph.Node
+import org.sonarsource.astquery.graph.NodeId
+import org.sonarsource.astquery.exec.ExecutionContext
+import org.sonarsource.astquery.graph.visual.FlowType
+import org.sonarsource.astquery.graph.visual.VisualInfo
 
 typealias ChildNode<T> = BatchNode<in T, *>
 
