@@ -22,12 +22,12 @@ package org.sonarsource.astquery.exec.greedy
 
 import org.sonarsource.astquery.exec.ExecutionContext
 import org.sonarsource.astquery.exec.ExecutionGraph
+import org.sonarsource.astquery.exec.greedy.core.RootNode
 
-class GreedyGraph<IN>(
-  val root: GreedyNode<IN, IN>
-) : ExecutionGraph<GreedyNode<*, *>, IN>(root) {
+class GreedyGraph<IN>(root: RootNode<IN>)
+  : ExecutionGraph<IN, RootNode<IN>, GreedyNode<*, *>>(root) {
 
   override fun execute(context: ExecutionContext, input: IN) {
-    root.onValue(context, -1, input)
+    root.onValue(context, root.id, input)
   }
 }

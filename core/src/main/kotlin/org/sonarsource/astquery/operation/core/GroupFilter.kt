@@ -13,7 +13,7 @@ import org.sonarsource.astquery.ir.nodes.CombineDrop
 import org.sonarsource.astquery.ir.nodes.IRNode
 import org.sonarsource.astquery.ir.nodes.ParentNode
 import org.sonarsource.astquery.ir.nodes.Scope
-import org.sonarsource.astquery.ir.nodes.UnScope
+import org.sonarsource.astquery.ir.nodes.Unscope
 import org.sonarsource.astquery.operation.Operation1toOptional
 import org.sonarsource.astquery.operation.composite.orElse
 
@@ -25,7 +25,7 @@ class GroupFilterWithScopeOperation <FROM, GROUPED, TO>(
     val scope = Scope(parent)
     val group = groupProducer(SingleSelector(scope)).toSingle()
     val combine = CombineDrop(scope, group.irNode, grouping)
-    return UnScope(combine, setOf(scope))
+    return Unscope(combine, setOf(scope))
   }
 }
 

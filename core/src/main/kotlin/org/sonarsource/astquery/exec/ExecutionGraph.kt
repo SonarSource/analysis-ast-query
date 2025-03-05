@@ -20,9 +20,16 @@
 
 package org.sonarsource.astquery.exec
 
-interface Executable<INPUT> {
+import org.sonarsource.astquery.graph.Graph
+import org.sonarsource.astquery.graph.Node
 
-  fun execute(context: ExecutionContext, input: INPUT)
+interface Executable<IN> {
+
+  fun execute(context: ExecutionContext, input: IN)
 
   fun isEmpty(): Boolean
+}
+
+abstract class ExecutionGraph<IN, R: N, N: Node<N>>(root: R) : Executable<IN>, Graph<R, N>(root) {
+  override fun isEmpty(): Boolean = sinks.isEmpty()
 }

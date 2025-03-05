@@ -1,9 +1,33 @@
 package org.sonarsource.astquery.graph
 
+import org.jetbrains.kotlin.fir.resolve.dfa.isNotEmpty
+import org.jetbrains.kotlin.fir.resolve.dfa.stackOf
 import org.sonarsource.astquery.ir.nodes.IRNode
 import org.sonarsource.astquery.ir.nodes.Root
 
 object GraphUtils {
+
+  fun <N : Node<N>> postOrder(start: N): Sequence<N> {
+    // Pair of node and flag if children were visited
+    val stack = stackOf(start to false)
+
+    return sequence {
+      while (stack.isNotEmpty) {
+        val (currentNode, childrenVisited) = stack.pop()
+
+        if (childrenVisited) {
+          yield(currentNode)
+        } else {
+          // Mark children as visited to yield the node later
+          stack.push(currentNode to true)
+
+          for (child in currentNode.children) {
+            stack.push(child to false)
+          }
+        }
+      }
+    }
+  }
 
   fun <N : Node<N>> topologicalSort(start: N): List<N> {
     val visited = mutableSetOf<N>()
@@ -57,13 +81,6 @@ object GraphUtils {
     copyNodes(toCopy, table)
 
     subTreeTo.applyTranslation(table)
-  }
-
-  fun removeDeadBranches(root: Root<*>) {
-    breathFirst(root)
-      .filter { !it.hasSink }
-      .toList()
-      .forEach { it.delete() }
   }
 
   fun <T> removeNodeAndStitch(node: IRNode<T, T>) {

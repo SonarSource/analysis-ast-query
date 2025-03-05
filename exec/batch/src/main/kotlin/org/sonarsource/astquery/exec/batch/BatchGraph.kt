@@ -22,10 +22,10 @@ package org.sonarsource.astquery.exec.batch
 
 import org.sonarsource.astquery.exec.ExecutionContext
 import org.sonarsource.astquery.exec.ExecutionGraph
+import org.sonarsource.astquery.exec.batch.core.RootNode
 
-class BatchGraph<IN>(
-  val root: BatchNode<IN, IN>
-) : ExecutionGraph<BatchNode<*, *>, IN>(root) {
+class BatchGraph<IN>(root: RootNode<IN>)
+  : ExecutionGraph<IN, RootNode<IN>, BatchNode<*, *>>(root) {
 
   override fun execute(context: ExecutionContext, input: IN) {
     root.onValue(context, root.id, Signal.Value(listOf(input), Scopes()))

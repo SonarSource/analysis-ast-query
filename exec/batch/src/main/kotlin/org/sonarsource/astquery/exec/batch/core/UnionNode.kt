@@ -67,6 +67,7 @@ class UnionNode<IN>(
       val (newAcc, newQueue) = newQueues
 
       queueMap[queue.key] = newQueue
+
       if (firstRun) {
         queueMap[firstId] = newAcc
         firstRun = false

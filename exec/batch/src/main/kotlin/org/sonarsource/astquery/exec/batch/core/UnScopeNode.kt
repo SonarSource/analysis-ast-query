@@ -67,8 +67,12 @@ class UnScopeNode<IN>(
       propagate(context, Signal.Value(emptyList(), signal.scopes))
       return
     }
+    val results = getResults(signalQueue)
 
+    results.forEach { propagate(context, it) }
+  }
 
+  private fun getResults(signalQueue: List<Signal<IN>>): MutableList<Signal<IN>> {
     // Unscope all the values by merging similar scoped values together
     var lastScope: Scopes? = null
     var values: List<IN> = emptyList()
@@ -102,13 +106,12 @@ class UnScopeNode<IN>(
           values = values + item.values
         }
       }
-    }
+      }
 
     if (lastScope != null) {
       results += Signal.Value(values, lastScope)
-    }
-
-    results.forEach { propagate(context, it) }
+      }
+    return results
   }
 
   private fun addSignalToQueue(context: ExecutionContext, signal: Signal<Nothing>) {

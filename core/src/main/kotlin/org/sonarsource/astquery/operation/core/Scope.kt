@@ -4,7 +4,7 @@ import org.sonarsource.astquery.graph.GraphUtils
 import org.sonarsource.astquery.ir.nodes.IRNode
 import org.sonarsource.astquery.ir.nodes.ParentNode
 import org.sonarsource.astquery.ir.nodes.Scope
-import org.sonarsource.astquery.ir.nodes.UnScope
+import org.sonarsource.astquery.ir.nodes.Unscope
 import org.sonarsource.astquery.operation.builder.ManySelector
 import org.sonarsource.astquery.operation.builder.OptionalSelector
 import org.sonarsource.astquery.operation.builder.Selector
@@ -25,7 +25,7 @@ private fun <CUR, TO> createScope(
   val end = builder(builderInput)
 
   val scope = Scope(from)
-  val unscope = UnScope(end.irNode, scope)
+  val unscope = Unscope(end.irNode, scope)
 
   GraphUtils.copySubTree(from, scope, unscope)
 

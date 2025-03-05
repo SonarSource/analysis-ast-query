@@ -59,36 +59,11 @@ infix fun <CUR> OptionalSelector<CUR>.eq(constant: CUR) = compareConst(constant,
 infix fun <CUR> ManySelector<CUR>.eq(constant: CUR) = compareConst(constant, equalsFunction)
 
 private val greaterFunction = IdentifiedLambda("greater", "Greater") { a: Int, b: Int -> a > b }
-infix fun <INIT> SingleSelector<Int>.gr(other: SingleSelector<Int>) = combine(other, greaterFunction)
-infix fun <INIT> OptionalSelector<Int>.gr(other: SingleSelector<Int>) = combine(other, greaterFunction)
-infix fun <INIT> ManySelector<Int>.gr(other: SingleSelector<Int>) = combine(other, greaterFunction)
+infix fun SingleSelector<Int>.gr(other: SingleSelector<Int>) = combine(other, greaterFunction)
+infix fun OptionalSelector<Int>.gr(other: SingleSelector<Int>) = combine(other, greaterFunction)
+infix fun ManySelector<Int>.gr(other: SingleSelector<Int>) = combine(other, greaterFunction)
 
-infix fun <INIT> SingleSelector<Int>.gr(constant: Int) = compareConst(constant, greaterFunction)
-infix fun <INIT> OptionalSelector<Int>.gr(constant: Int) = compareConst(constant, greaterFunction)
-infix fun <INIT> ManySelector<Int>.gr(constant: Int) = compareConst(constant, greaterFunction)
+infix fun SingleSelector<Int>.gr(constant: Int) = compareConst(constant, greaterFunction)
+infix fun OptionalSelector<Int>.gr(constant: Int) = compareConst(constant, greaterFunction)
+infix fun ManySelector<Int>.gr(constant: Int) = compareConst(constant, greaterFunction)
 
-/* TODO Implement the rest of the comparison functions
-infix fun <INIT> SingleSelector<Int>.gre(other: Selector<Int, *>) = compare(other) { a, b -> a >= b }
-infix fun <INIT> OptionalSelector<Int>.gre(other: Selector<Int, *>) = compare(other) { a, b -> a >= b }
-infix fun <INIT> ManySelector<Int>.gre(other: Selector<Int, *>) = compare(other) { a, b -> a >= b }
-
-infix fun <INIT> SingleSelector<Int>.gre(constant: Int) = compareConst(constant) { a, b -> a >= b }
-infix fun <INIT> OptionalSelector<Int>.gre(constant: Int) = compareConst(constant) { a, b -> a >= b }
-infix fun <INIT> ManySelector<Int>.gre(constant: Int) = compareConst(constant) { a, b -> a >= b }
-
-infix fun <INIT> SingleSelector<Int>.lr(other: Selector<Int, *>) = compare(other) { a, b -> a < b }
-infix fun <INIT> OptionalSelector<Int>.lr(other: Selector<Int, *>) = compare(other) { a, b -> a < b }
-infix fun <INIT> ManySelector<Int>.lr(other: Selector<Int, *>) = compare(other) { a, b -> a < b }
-
-infix fun <INIT> SingleSelector<Int>.lr(constant: Int) = compareConst(constant) { a, b -> a < b }
-infix fun <INIT> OptionalSelector<Int>.lr(constant: Int) = compareConst(constant) { a, b -> a < b }
-infix fun <INIT> ManySelector<Int>.lr(constant: Int) = compareConst(constant) { a, b -> a < b }
-
-infix fun <INIT> SingleSelector<Int>.lre(other: Selector<Int, *>) = compare(other) { a, b -> a <= b }
-infix fun <INIT> OptionalSelector<Int>.lre(other: Selector<Int, *>) = compare(other) { a, b -> a <= b }
-infix fun <INIT> ManySelector<Int>.lre(other: Selector<Int, *>) = compare(other) { a, b -> a <= b }
-
-infix fun <INIT> SingleSelector<Int>.lre(constant: Int) = compareConst(constant) { a, b -> a <= b }
-infix fun <INIT> OptionalSelector<Int>.lre(constant: Int) = compareConst(constant) { a, b -> a <= b }
-infix fun <INIT> ManySelector<Int>.lre(constant: Int) = compareConst(constant) { a, b -> a <= b }
-*/

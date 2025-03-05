@@ -1,6 +1,12 @@
 package org.sonarsource.astquery.graph
 
-open class Graph<N : Node<N>>(root: N) {
-  val nodes: Map<Int, N> = GraphUtils.breathFirst(root).associateBy { it.id }
-  val sinks: Set<N> = nodes.values.filter { it.isSink }.toSet()
+open class Graph<R : N, N : Node<N>>(val root: R) {
+
+    val nodes: Map<Int, N> by lazy {
+        GraphUtils.breathFirst(root).associateBy { it.id }
+    }
+
+    val sinks: Set<N> by lazy {
+        nodes.values.filter { it.isSink }.toSet()
+    }
 }

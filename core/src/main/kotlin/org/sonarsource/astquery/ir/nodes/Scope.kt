@@ -18,7 +18,7 @@ class Scope<IN>(
   override fun canMergeWith(other: IRNode<*, *>): Boolean =
     other is Scope<*> && scopeId == other.scopeId
 
-  val unscopes = mutableSetOf<UnScope<*>>()
+  val unscopes = mutableSetOf<Unscope<*>>()
 
   override fun copy() = Scope(parents.single(), scopeId).also { scope ->
     unscopes.forEach { unScope ->
@@ -38,7 +38,7 @@ class Scope<IN>(
         unscopes -= unScope
         unScope.scopeStarts -= this
 
-        val newUnscope = table.get(unScope) as UnScope<*>
+        val newUnscope = table.get(unScope) as Unscope<*>
         unscopes += newUnscope
         newUnscope.addScopeStart(this)
       }
@@ -56,7 +56,7 @@ class Scope<IN>(
   override fun toString() = "Scope($scopeId-${unscopes.map(IRNode<*, *>::id).joinToString()})"
 }
 
-class UnScope<IN>(
+class Unscope<IN>(
   parent: ParentNode<IN>,
   scopeParents: Set<Scope<*>>
 ) : IRNode<IN, IN>(parent) {
@@ -71,7 +71,7 @@ class UnScope<IN>(
   override val isSink = false
 
   override fun canMergeWith(other: IRNode<*, *>): Boolean =
-    other is UnScope<*> && scopeStarts == other.scopeStarts
+    other is Unscope<*> && scopeStarts == other.scopeStarts
 
   var scopeStarts = scopeParents
 
@@ -79,8 +79,8 @@ class UnScope<IN>(
     scopeStarts += scope
   }
 
-  override fun copy(): UnScope<IN> {
-    return UnScope(parents.single(), scopeStarts)
+  override fun copy(): Unscope<IN> {
+    return Unscope(parents.single(), scopeStarts)
   }
 
   override fun applyTranslation(table: TranslationTable) {
