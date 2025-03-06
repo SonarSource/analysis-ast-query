@@ -15,8 +15,8 @@ plugins {
 rootProject.name = "ast-query"
 
 include(":core")
-include("exec:batch")
-include("exec:greedy")
+include(":exec-batch")
+include(":exec-greedy")
 
 dependencyResolutionManagement {
     versionCatalogs {

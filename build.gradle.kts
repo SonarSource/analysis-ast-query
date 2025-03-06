@@ -5,12 +5,15 @@ plugins {
     java
     id("jacoco")
     kotlin("jvm")
+    `maven-publish`
 }
 
+val projectTitle: String by project
 
 allprojects {
     apply<JavaPlugin>()
     apply(plugin = "jacoco")
+    apply(plugin = "maven-publish")
 
     gradle.projectsEvaluated {
         tasks.withType<JavaCompile> {
@@ -76,10 +79,51 @@ subprojects {
             events("skipped", "failed") // verbose log for failed and skipped tests (by default the name of the tests are not logged)
         }
     }
+
+    java {
+        withJavadocJar()
+        withSourcesJar()
+    }
+
+    publishing {
+        publications {
+            create<MavenPublication>("mavenJava") {
+                from(components["java"])
+
+                pom {
+                    name.set(projectTitle)
+                    description.set(project.description)
+                    url.set("http://www.sonarqube.org/")
+                    organization {
+                        name.set("SonarSource")
+                        url.set("http://www.sonarqube.org/")
+                    }
+                    licenses {
+                        license {
+                            name.set("GNU LPGL 3")
+                            url.set("http://www.gnu.org/licenses/lgpl.txt")
+                            distribution.set("repo")
+                        }
+                    }
+                    scm {
+                        url.set("https://github.com/SonarSource/analysis-ast-query")
+                    }
+                    developers {
+                        developer {
+                            id.set("sonarsource-team")
+                            name.set("SonarSource Team")
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
+
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
 }
+
 repositories {
     mavenCentral()
 }
