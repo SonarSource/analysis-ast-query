@@ -213,7 +213,7 @@ class GreedyBuilder(
     ir: Unscope<IN>,
     ctx: GreedyBuildCtx
   ): GreedyNode<*, *> {
-    val scopeIds = ir.scopeStarts.map { it.id }.toSet()
+    val scopeIds = ir.scopeStarts.map { it.scopeId }.toSet()
     return UnScopeNode(ir.id, ctx.getChildren(ir), scopeIds)
   }
 

@@ -205,7 +205,7 @@ class BatchBuilder(
     ir: Unscope<IN>,
     ctx: BatchBuildCtx
   ): BatchNode<*, *> {
-    val scopeIds = ir.scopeStarts.map { it.id }.toSet()
+    val scopeIds = ir.scopeStarts.map { it.scopeId }.toSet()
     return UnScopeNode(ir.id, ctx.getChildren(ir), scopeIds)
   }
 
