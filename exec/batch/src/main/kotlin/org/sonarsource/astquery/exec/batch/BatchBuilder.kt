@@ -78,7 +78,7 @@ class BatchBuildCtx : BuildCtx {
 
 class BatchBuilder(
     irTransformations: List<Transformation<IR>>,
-    funcRegistry: NodeFunctionRegistry<BatchNode<*, *>>
+    funcRegistry: NodeFunctionRegistry<BatchBuildCtx, BatchNode<*, *>>
 ) : GraphExecBuilder<BatchBuildCtx, BatchNode<*, *>>(irTransformations, funcRegistry) {
 
   override fun newContext(): BatchBuildCtx {
@@ -92,7 +92,7 @@ class BatchBuilder(
     val transform = ir.transform
     return when (transform) {
       is IdentifiedLambda -> AggregateNode(ir.id, ctx.getChildren(ir), transform.function)
-      is IdentifiedNodeFunction -> getNodeFunction(ir, transform)
+      is IdentifiedNodeFunction -> getNodeFunction(ctx, transform, ir)
     }
   }
 
@@ -103,7 +103,7 @@ class BatchBuilder(
     val transform = ir.transform
     return when (transform) {
       is IdentifiedLambda -> AggregateDropNode(ir.id, ctx.getChildren(ir), transform.function)
-      is IdentifiedNodeFunction -> getNodeFunction(ir, transform)
+      is IdentifiedNodeFunction -> getNodeFunction(ctx, transform, ir)
     }
   }
 
@@ -116,7 +116,7 @@ class BatchBuilder(
       is IdentifiedLambda ->
         CombineNode(ir.id, ctx.getChildren(ir), ir.left.id, ir.right.id, transform.function)
       is IdentifiedNodeFunction ->
-        getNodeFunction(ir, transform)
+        getNodeFunction(ctx, transform, ir)
     }
   }
 
@@ -129,7 +129,7 @@ class BatchBuilder(
       is IdentifiedLambda ->
         CombineDropNode(ir.id, ctx.getChildren(ir), ir.left.id, ir.right.id, transform.function)
       is IdentifiedNodeFunction ->
-        getNodeFunction(ir, transform)
+        getNodeFunction(ctx, transform, ir)
     }
   }
 
@@ -147,7 +147,7 @@ class BatchBuilder(
     val transform = ir.predicate
     return when (transform) {
       is IdentifiedLambda -> FilterNode(ir.id, ctx.getChildren(ir), transform.function)
-      is IdentifiedNodeFunction -> getNodeFunction(ir, transform)
+      is IdentifiedNodeFunction -> getNodeFunction(ctx, transform, ir)
     }
   }
 
@@ -172,7 +172,7 @@ class BatchBuilder(
     val transform = ir.mapper
     return when (transform) {
       is IdentifiedLambda -> FlatMapNode(ir.id, ctx.getChildren(ir), transform.function)
-      is IdentifiedNodeFunction -> getNodeFunction(ir, transform)
+      is IdentifiedNodeFunction -> getNodeFunction(ctx, transform, ir)
     }
   }
 
@@ -183,7 +183,7 @@ class BatchBuilder(
     val transform = ir.mapper
     return when (transform) {
       is IdentifiedLambda -> MapNode(ir.id, ctx.getChildren(ir), transform.function)
-      is IdentifiedNodeFunction -> getNodeFunction(ir, transform)
+      is IdentifiedNodeFunction -> getNodeFunction(ctx, transform, ir)
     }
   }
 

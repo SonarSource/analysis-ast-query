@@ -18,13 +18,13 @@ interface BuildCtx {
 
 abstract class GraphExecBuilder<CTX: BuildCtx, N : Node<N>>(
     irTransformations: List<Transformation<IR>>,
-    protected val funcRegistry: NodeFunctionRegistry<N>
+    protected val funcRegistry: NodeFunctionRegistry<CTX, N>
 ) : ExecBuilder(irTransformations) {
 
   protected abstract fun newContext(): CTX
 
-  protected fun getNodeFunction(ir: IRNode<*, *>, func: IdentifiedNodeFunction<*>): N {
-    return funcRegistry.translateNode(ir, func) ?: throw IllegalStateException("No function found for $ir and $func")
+  protected fun getNodeFunction(ctx: CTX, func: IdentifiedNodeFunction<*>, ir: IRNode<*, *>): N {
+    return funcRegistry.translateNode(ctx, ir, func) ?: throw IllegalStateException("No function found for $ir and $func")
   }
 
   override fun <IN> translate(graph: IRGraph<IN>): Executable<IN> {
