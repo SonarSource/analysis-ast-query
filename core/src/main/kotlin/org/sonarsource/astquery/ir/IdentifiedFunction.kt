@@ -55,7 +55,7 @@ fun <T> identity(name: String = "Identity") = IdentifiedLambda("identity", name)
 fun <T> constant(value: T, name: String = "Constant-$value") =
   IdentifiedLambda("constant.$value", name) { _: Any? -> value }
 
-sealed class IdentifiedNodeFunction<out FUNC : Function<*>>(
+abstract class IdentifiedNodeFunction<out FUNC : Function<*>>(
   final override val name: String
 ) : IdentifiedFunction<FUNC> {
   final override val id: OpId = "NodeOperation[$name]"

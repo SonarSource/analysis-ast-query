@@ -20,8 +20,19 @@
 
 package org.sonarsource.astquery.exec
 
-data class ExecutionContext(
-  val test : Any = TODO()
+class ExecutionContext(
+  private val metadata: Map<ContextEntry<*>, Any?>
+) {
+  fun <T> getMetadata(entry: ContextEntry<T>): T {
+    @Suppress("UNCHECKED_CAST")
+    return metadata[entry] as T
+  }
+}
+
+data class ContextEntry<T>(
+  val key: String
 )
+
+
 
 

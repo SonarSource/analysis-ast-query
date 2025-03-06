@@ -15,5 +15,5 @@ interface BuilderFactory<N : Node<N>, CTX, B : BuilderFactory<N, CTX, B>> {
         irType: KClass<out FROM>, function: KClass<out F>, provider: (CTX, FROM, F) -> N
     ): B
 
-    fun <IN> createManager(): PipelineManager<IN>
+    fun build(): ExecBuilder
 }

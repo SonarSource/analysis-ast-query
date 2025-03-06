@@ -1,6 +1,5 @@
 package org.sonarsource.astquery.exec.batch
 
-import org.sonarsource.astquery.PipelineManager
 import org.sonarsource.astquery.exec.build.BuilderFactory
 import org.sonarsource.astquery.exec.build.NodeFunctionRegistry
 import org.sonarsource.astquery.exec.batch.NodeCreator.createCountNode
@@ -68,9 +67,7 @@ class BatchBuilderFactory : BuilderFactory<BatchNode<*, *>, BatchBuildCtx, Batch
         return this
     }
 
-    override fun <IN> createManager(): PipelineManager<IN> {
-        return PipelineManager(
-            BatchBuilder(transformations, nodeFuncRegistry)
-        )
+    override fun build(): BatchBuilder {
+        return BatchBuilder(transformations, nodeFuncRegistry)
     }
 }

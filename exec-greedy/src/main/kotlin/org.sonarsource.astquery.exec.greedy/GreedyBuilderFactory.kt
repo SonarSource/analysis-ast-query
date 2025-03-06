@@ -1,6 +1,5 @@
 package org.sonarsource.astquery.exec.greedy
 
-import org.sonarsource.astquery.PipelineManager
 import org.sonarsource.astquery.exec.build.BuilderFactory
 import org.sonarsource.astquery.exec.build.NodeFunctionRegistry
 import org.sonarsource.astquery.exec.greedy.NodeCreator.createCountNode
@@ -68,9 +67,7 @@ class GreedyBuilderFactory : BuilderFactory<GreedyNode<*, *>, GreedyBuildCtx, Gr
         return this
     }
 
-    override fun <IN> createManager(): PipelineManager<IN> {
-        return PipelineManager(
-            GreedyBuilder(transformations, nodeFuncRegistry)
-        )
+    override fun build(): GreedyBuilder {
+        return GreedyBuilder(transformations, nodeFuncRegistry)
     }
 }
