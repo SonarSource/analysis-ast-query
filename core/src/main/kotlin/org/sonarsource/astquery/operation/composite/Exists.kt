@@ -20,21 +20,21 @@
 
 package org.sonarsource.astquery.operation.composite
 
-import org.sonarsource.astquery.operation.builder.ManySelector
-import org.sonarsource.astquery.operation.builder.OptionalSelector
-import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.operation.builder.ManyBuilder
+import org.sonarsource.astquery.operation.builder.OptionalBuilder
+import org.sonarsource.astquery.operation.builder.SingleBuilder
 import org.sonarsource.astquery.ir.ExistFunction
 import org.sonarsource.astquery.ir.NotExistFunction
 import org.sonarsource.astquery.operation.core.aggregate
 
-fun <CUR> OptionalSelector<CUR>.isPresent(): SingleSelector<Boolean> =
+fun <CUR> OptionalBuilder<CUR>.isPresent(): SingleBuilder<Boolean> =
   aggregate(ExistFunction)
 
-fun <CUR> ManySelector<CUR>.exists(): SingleSelector<Boolean>  =
+fun <CUR> ManyBuilder<CUR>.exists(): SingleBuilder<Boolean>  =
   aggregate(ExistFunction)
 
-fun <CUR> OptionalSelector<CUR>.notPresent(): SingleSelector<Boolean>  =
+fun <CUR> OptionalBuilder<CUR>.notPresent(): SingleBuilder<Boolean>  =
   aggregate(NotExistFunction)
 
-fun <CUR> ManySelector<CUR>.noneExists(): SingleSelector<Boolean>  =
+fun <CUR> ManyBuilder<CUR>.noneExists(): SingleBuilder<Boolean>  =
   aggregate(NotExistFunction)

@@ -23,9 +23,9 @@ package org.sonarsource.astquery.operation.composite
 import org.sonarsource.astquery.operation.Droppable
 import org.sonarsource.astquery.operation.Droppable.Drop
 import org.sonarsource.astquery.operation.Droppable.Keep
-import org.sonarsource.astquery.operation.builder.ManySelector
-import org.sonarsource.astquery.operation.builder.OptionalSelector
-import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.operation.builder.ManyBuilder
+import org.sonarsource.astquery.operation.builder.OptionalBuilder
+import org.sonarsource.astquery.operation.builder.SingleBuilder
 import org.sonarsource.astquery.ir.IdentifiedFunction
 import org.sonarsource.astquery.ir.IdentifiedLambda
 import org.sonarsource.astquery.operation.core.combineFilter
@@ -35,11 +35,11 @@ private fun <T> exclusionFunction(): IdentifiedFunction<(T, List<T>) -> Droppabl
     if (excluded.contains(elem)) Drop else Keep(elem)
   }
 
-fun <CUR> SingleSelector<CUR>.exclude(other: SingleSelector<List<CUR>>) =
+fun <CUR> SingleBuilder<CUR>.exclude(other: SingleBuilder<List<CUR>>) =
   combineFilter(other, exclusionFunction())
 
-fun <CUR> OptionalSelector<CUR>.exclude(other: SingleSelector<List<CUR>>) =
+fun <CUR> OptionalBuilder<CUR>.exclude(other: SingleBuilder<List<CUR>>) =
   combineFilter(other, exclusionFunction())
 
-fun <CUR> ManySelector<CUR>.exclude(other: SingleSelector<List<CUR>>) =
+fun <CUR> ManyBuilder<CUR>.exclude(other: SingleBuilder<List<CUR>>) =
   combineFilter(other, exclusionFunction())

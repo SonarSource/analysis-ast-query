@@ -20,9 +20,9 @@
 
 package org.sonarsource.astquery.operation.core
 
-import org.sonarsource.astquery.operation.builder.ManySelector
-import org.sonarsource.astquery.operation.builder.OptionalSelector
-import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.operation.builder.ManyBuilder
+import org.sonarsource.astquery.operation.builder.OptionalBuilder
+import org.sonarsource.astquery.operation.builder.SingleBuilder
 import org.sonarsource.astquery.ir.*
 import org.sonarsource.astquery.ir.nodes.Aggregate
 import org.sonarsource.astquery.ir.nodes.IRNode
@@ -38,27 +38,27 @@ class AggregateOperation<FROM, TO>(
   }
 }
 
-fun <IN, OUT> OptionalSelector<IN>.aggregate(aggregator: IdentifiedFunction<(List<IN>) -> OUT>): SingleSelector<OUT> {
+fun <IN, OUT> OptionalBuilder<IN>.aggregate(aggregator: IdentifiedFunction<(List<IN>) -> OUT>): SingleBuilder<OUT> {
   return apply(AggregateOperation(aggregator))
 }
 
-fun <IN, OUT> ManySelector<IN>.aggregate(aggregator: IdentifiedFunction<(List<IN>) -> OUT>): SingleSelector<OUT> {
+fun <IN, OUT> ManyBuilder<IN>.aggregate(aggregator: IdentifiedFunction<(List<IN>) -> OUT>): SingleBuilder<OUT> {
   return apply(AggregateOperation(aggregator))
 }
 
 
-fun <IN, OUT> OptionalSelector<IN>.aggregate(aggregator: (List<IN>) -> OUT) =
+fun <IN, OUT> OptionalBuilder<IN>.aggregate(aggregator: (List<IN>) -> OUT) =
   aggregate(idFunction(lambda = aggregator))
-fun <IN, OUT> ManySelector<IN>.aggregate(aggregator: (List<IN>) -> OUT) =
+fun <IN, OUT> ManyBuilder<IN>.aggregate(aggregator: (List<IN>) -> OUT) =
   aggregate(idFunction(lambda = aggregator))
 
-fun <IN> ManySelector<IN>.aggregate(): SingleSelector<List<IN>> = aggregate(identity("Aggregate"))
-fun <IN> OptionalSelector<IN>.aggregate(): SingleSelector<List<IN>> = aggregate(identity("Aggregate"))
+fun <IN> ManyBuilder<IN>.aggregate(): SingleBuilder<List<IN>> = aggregate(identity("Aggregate"))
+fun <IN> OptionalBuilder<IN>.aggregate(): SingleBuilder<List<IN>> = aggregate(identity("Aggregate"))
 
-fun <IN> ManySelector<IN>.count() = aggregate(CountFunction)
+fun <IN> ManyBuilder<IN>.count() = aggregate(CountFunction)
 
-fun <IN> OptionalSelector<IN>.isPresent() = aggregate(ExistFunction)
-fun <IN> ManySelector<IN>.exists() = aggregate(ExistFunction)
+fun <IN> OptionalBuilder<IN>.isPresent() = aggregate(ExistFunction)
+fun <IN> ManyBuilder<IN>.exists() = aggregate(ExistFunction)
 
-fun <IN> OptionalSelector<IN>.notPresent() = aggregate(NotExistFunction)
-fun <IN> ManySelector<IN>.noneExists() = aggregate(NotExistFunction)
+fun <IN> OptionalBuilder<IN>.notPresent() = aggregate(NotExistFunction)
+fun <IN> ManyBuilder<IN>.noneExists() = aggregate(NotExistFunction)

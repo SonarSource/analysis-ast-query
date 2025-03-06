@@ -24,9 +24,9 @@ import org.sonarsource.astquery.ir.nodes.FilterType
 import org.sonarsource.astquery.ir.nodes.IRNode
 import org.sonarsource.astquery.ir.nodes.ParentNode
 import org.sonarsource.astquery.operation.Operation1toOptional
-import org.sonarsource.astquery.operation.builder.ManySelector
-import org.sonarsource.astquery.operation.builder.OptionalSelector
-import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.operation.builder.ManyBuilder
+import org.sonarsource.astquery.operation.builder.OptionalBuilder
+import org.sonarsource.astquery.operation.builder.SingleBuilder
 import kotlin.reflect.KClass
 
 class FilterTypeOperation<IN, OUT : IN & Any>(
@@ -37,14 +37,14 @@ class FilterTypeOperation<IN, OUT : IN & Any>(
   }
 }
 
-fun <FROM, TO : FROM & Any> SingleSelector<FROM>.filterByType(vararg classes: KClass<out TO>): OptionalSelector<TO> {
+fun <FROM, TO : FROM & Any> SingleBuilder<FROM>.filterByType(vararg classes: KClass<out TO>): OptionalBuilder<TO> {
   return apply(FilterTypeOperation(classes.toSet()))
 }
 
-fun <FROM, TO : FROM & Any> OptionalSelector<FROM>.filterByType(vararg classes: KClass<out TO>): OptionalSelector<TO> {
+fun <FROM, TO : FROM & Any> OptionalBuilder<FROM>.filterByType(vararg classes: KClass<out TO>): OptionalBuilder<TO> {
   return apply(FilterTypeOperation(classes.toSet()))
 }
 
-fun <FROM, TO : FROM & Any> ManySelector<FROM>.filterByType(vararg classes: KClass<out TO>): ManySelector<TO> {
+fun <FROM, TO : FROM & Any> ManyBuilder<FROM>.filterByType(vararg classes: KClass<out TO>): ManyBuilder<TO> {
   return apply(FilterTypeOperation(classes.toSet()))
 }

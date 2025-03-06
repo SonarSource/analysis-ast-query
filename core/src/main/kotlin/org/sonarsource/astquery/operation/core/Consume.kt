@@ -25,9 +25,9 @@ import org.sonarsource.astquery.ir.nodes.Consumer
 import org.sonarsource.astquery.ir.nodes.IRNode
 import org.sonarsource.astquery.ir.nodes.ParentNode
 import org.sonarsource.astquery.operation.Operation1to1
-import org.sonarsource.astquery.operation.builder.ManySelector
-import org.sonarsource.astquery.operation.builder.OptionalSelector
-import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.operation.builder.ManyBuilder
+import org.sonarsource.astquery.operation.builder.OptionalBuilder
+import org.sonarsource.astquery.operation.builder.SingleBuilder
 
 class ConsumeOperation<C>(
   private val consume: (ExecutionContext, C) -> Unit
@@ -37,14 +37,14 @@ class ConsumeOperation<C>(
     return Consumer(parent, consume)
   }
 }
-fun <C> SingleSelector<C>.consume(reporter: (ExecutionContext, C) -> Unit): SingleSelector<C> {
+fun <C> SingleBuilder<C>.consume(reporter: (ExecutionContext, C) -> Unit): SingleBuilder<C> {
   return apply(ConsumeOperation(reporter))
 }
 
-fun <C> OptionalSelector<C>.consume(reporter: (ExecutionContext, C) -> Unit): OptionalSelector<C> {
+fun <C> OptionalBuilder<C>.consume(reporter: (ExecutionContext, C) -> Unit): OptionalBuilder<C> {
   return apply(ConsumeOperation(reporter))
 }
 
-fun <C> ManySelector<C>.consume(reporter: (ExecutionContext, C) -> Unit): ManySelector<C> {
+fun <C> ManyBuilder<C>.consume(reporter: (ExecutionContext, C) -> Unit): ManyBuilder<C> {
   return apply(ConsumeOperation(reporter))
 }

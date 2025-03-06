@@ -10,8 +10,8 @@ import org.sonarsource.astquery.ir.IR
 import org.sonarsource.astquery.ir.IRGraph
 import org.sonarsource.astquery.ir.nodes.Consumer
 import org.sonarsource.astquery.ir.nodes.Root
-import org.sonarsource.astquery.operation.builder.Selector
-import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.operation.builder.PipelineBuilder
+import org.sonarsource.astquery.operation.builder.SingleBuilder
 
 abstract class ExecBuilder(
   private val irTransformations: List<Transformation<IR>>
@@ -27,15 +27,15 @@ abstract class ExecBuilder(
 
   abstract fun <IN> translate(graph: IRGraph<IN>): Executable<IN>
 
-  fun <INPUT, OUTPUT> createQuery(operations: (SingleSelector<INPUT>) -> Selector<*, OUTPUT>): Query<INPUT, OUTPUT> {
+  fun <INPUT, OUTPUT> createQuery(operations: (SingleBuilder<INPUT>) -> PipelineBuilder<*, OUTPUT>): Query<INPUT, OUTPUT> {
     val root = Root<INPUT>()
-    val selector = SingleSelector(root)
+    val selector = SingleBuilder(root)
     val output = operations(selector)
 
     return buildQuery(root, output)
   }
 
-  private fun <IN, END, OUT> buildQuery(root: Root<IN>, end: Selector<END, OUT>): Query<IN, OUT> {
+  private fun <IN, END, OUT> buildQuery(root: Root<IN>, end: PipelineBuilder<END, OUT>): Query<IN, OUT> {
 
     val table = GraphUtils.copyTree(root)
     val root = table.get(root) as Root<IN>

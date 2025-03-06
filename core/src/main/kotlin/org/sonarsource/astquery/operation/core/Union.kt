@@ -21,10 +21,10 @@
 package org.sonarsource.astquery.operation.core
 
 import org.sonarsource.astquery.ir.nodes.IRNode
-import org.sonarsource.astquery.operation.builder.ManySelector
-import org.sonarsource.astquery.operation.builder.OptionalSelector
-import org.sonarsource.astquery.operation.builder.Selector
-import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.operation.builder.ManyBuilder
+import org.sonarsource.astquery.operation.builder.OptionalBuilder
+import org.sonarsource.astquery.operation.builder.PipelineBuilder
+import org.sonarsource.astquery.operation.builder.SingleBuilder
 import org.sonarsource.astquery.ir.nodes.ParentNode
 import org.sonarsource.astquery.ir.nodes.Union
 import org.sonarsource.astquery.operation.Operation1toN
@@ -38,20 +38,20 @@ class UnionOperation<FROM>(
   }
 }
 
-infix fun <CUR : OUT, OUT> SingleSelector<CUR>.union(other: Selector<out OUT, *>): ManySelector<OUT> {
+infix fun <CUR : OUT, OUT> SingleBuilder<CUR>.union(other: PipelineBuilder<out OUT, *>): ManyBuilder<OUT> {
   return apply(UnionOperation(other.irNode))
 }
 
-infix fun <CUR : OUT, OUT> OptionalSelector<CUR>.union(other: Selector<out OUT, *>): ManySelector<OUT> {
+infix fun <CUR : OUT, OUT> OptionalBuilder<CUR>.union(other: PipelineBuilder<out OUT, *>): ManyBuilder<OUT> {
   return apply(UnionOperation(other.irNode))
 }
 
-infix fun <CUR : OUT, OUT> ManySelector<CUR>.union(other: Selector<out OUT, *>): ManySelector<OUT> {
+infix fun <CUR : OUT, OUT> ManyBuilder<CUR>.union(other: PipelineBuilder<out OUT, *>): ManyBuilder<OUT> {
   return apply(UnionOperation(other.irNode))
 }
 
-fun <CUR> union(vararg selectors: Selector<CUR, *>): ManySelector<CUR> {
-  require(selectors.isNotEmpty()) { "At least one selector must be provided" }
+fun <CUR> union(vararg builders: PipelineBuilder<CUR, *>): ManyBuilder<CUR> {
+  require(builders.isNotEmpty()) { "At least one selector must be provided" }
 
-  return ManySelector(Union(selectors.map { it.irNode }.toSet()))
+  return ManyBuilder(Union(builders.map { it.irNode }.toSet()))
 }

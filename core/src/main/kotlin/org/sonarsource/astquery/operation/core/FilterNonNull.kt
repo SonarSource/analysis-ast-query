@@ -24,9 +24,9 @@ import org.sonarsource.astquery.ir.nodes.FilterNonNull
 import org.sonarsource.astquery.ir.nodes.IRNode
 import org.sonarsource.astquery.ir.nodes.ParentNode
 import org.sonarsource.astquery.operation.Operation1toOptional
-import org.sonarsource.astquery.operation.builder.ManySelector
-import org.sonarsource.astquery.operation.builder.OptionalSelector
-import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.operation.builder.ManyBuilder
+import org.sonarsource.astquery.operation.builder.OptionalBuilder
+import org.sonarsource.astquery.operation.builder.SingleBuilder
 
 class FilterNonNullOperation<T> : Operation1toOptional<T?, T> {
   override fun applyTo(parent: ParentNode<T?>): IRNode<*, out T> {
@@ -34,14 +34,14 @@ class FilterNonNullOperation<T> : Operation1toOptional<T?, T> {
   }
 }
 
-fun <CUR> SingleSelector<CUR?>.filterNonNull(): OptionalSelector<CUR> {
+fun <CUR> SingleBuilder<CUR?>.filterNonNull(): OptionalBuilder<CUR> {
   return apply(FilterNonNullOperation())
 }
 
-fun <CUR> OptionalSelector<CUR?>.filterNonNull(): OptionalSelector<CUR> {
+fun <CUR> OptionalBuilder<CUR?>.filterNonNull(): OptionalBuilder<CUR> {
   return apply(FilterNonNullOperation())
 }
 
-fun <CUR> ManySelector<CUR?>.filterNonNull(): ManySelector<CUR> {
+fun <CUR> ManyBuilder<CUR?>.filterNonNull(): ManyBuilder<CUR> {
   return apply(FilterNonNullOperation())
 }

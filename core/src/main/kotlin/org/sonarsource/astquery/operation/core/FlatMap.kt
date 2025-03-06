@@ -26,8 +26,8 @@ import org.sonarsource.astquery.ir.nodes.FlatMap
 import org.sonarsource.astquery.ir.nodes.IRNode
 import org.sonarsource.astquery.ir.nodes.ParentNode
 import org.sonarsource.astquery.operation.Operation1toN
-import org.sonarsource.astquery.operation.builder.ManySelector
-import org.sonarsource.astquery.operation.builder.Selector
+import org.sonarsource.astquery.operation.builder.ManyBuilder
+import org.sonarsource.astquery.operation.builder.PipelineBuilder
 import org.sonarsource.astquery.operation.idFunction
 
 private typealias IdFunc<T> = IdentifiedFunction<T>
@@ -41,15 +41,15 @@ class FlatMapOperation<FROM, TO>(
   }
 }
 
-fun <FROM, TO> Selector<FROM, *>.flatMapSeq(mapper: IdFunc<(FROM) -> Sequence<TO>>): ManySelector<TO> {
+fun <FROM, TO> PipelineBuilder<FROM, *>.flatMapSeq(mapper: IdFunc<(FROM) -> Sequence<TO>>): ManyBuilder<TO> {
   return apply(FlatMapOperation(mapper))
 }
 
-fun <FROM, TO> Selector<FROM, *>.flatMapSeq(mapper: (FROM) -> Sequence<TO>) =
+fun <FROM, TO> PipelineBuilder<FROM, *>.flatMapSeq(mapper: (FROM) -> Sequence<TO>) =
   flatMapSeq(idFunction(lambda = mapper))
 
-fun <FROM, TO> Selector<FROM, *>.flatMap(mapper: IdLambda<(FROM) -> Collection<TO>>) =
+fun <FROM, TO> PipelineBuilder<FROM, *>.flatMap(mapper: IdLambda<(FROM) -> Collection<TO>>) =
   flatMapSeq(IdLambda(mapper.id, mapper.desc) { mapper.function(it).asSequence() })
 
-fun <FROM, TO> Selector<FROM, *>.flatMap(mapper: (FROM) -> Collection<TO>) =
+fun <FROM, TO> PipelineBuilder<FROM, *>.flatMap(mapper: (FROM) -> Collection<TO>) =
   flatMap(idFunction(lambda = mapper))

@@ -25,9 +25,9 @@ import org.sonarsource.astquery.ir.nodes.IRNode
 import org.sonarsource.astquery.ir.nodes.IRMap
 import org.sonarsource.astquery.ir.nodes.ParentNode
 import org.sonarsource.astquery.operation.Operation1to1
-import org.sonarsource.astquery.operation.builder.ManySelector
-import org.sonarsource.astquery.operation.builder.OptionalSelector
-import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.operation.builder.ManyBuilder
+import org.sonarsource.astquery.operation.builder.OptionalBuilder
+import org.sonarsource.astquery.operation.builder.SingleBuilder
 import org.sonarsource.astquery.operation.idFunction
 
 class MapOperation<FROM, TO>(
@@ -39,18 +39,18 @@ class MapOperation<FROM, TO>(
   }
 }
 
-fun <FROM, TO> SingleSelector<FROM>.map(mapper: IdentifiedFunction<(FROM) -> TO>): SingleSelector<TO> {
+fun <FROM, TO> SingleBuilder<FROM>.map(mapper: IdentifiedFunction<(FROM) -> TO>): SingleBuilder<TO> {
   return apply(MapOperation(mapper))
 }
 
-fun <FROM, TO> OptionalSelector<FROM>.map(mapper: IdentifiedFunction<(FROM) -> TO>): OptionalSelector<TO> {
+fun <FROM, TO> OptionalBuilder<FROM>.map(mapper: IdentifiedFunction<(FROM) -> TO>): OptionalBuilder<TO> {
   return apply(MapOperation(mapper))
 }
 
-fun <FROM, TO> ManySelector<FROM>.map(mapper: IdentifiedFunction<(FROM) -> TO>): ManySelector<TO> {
+fun <FROM, TO> ManyBuilder<FROM>.map(mapper: IdentifiedFunction<(FROM) -> TO>): ManyBuilder<TO> {
   return apply(MapOperation(mapper))
 }
 
-fun <FROM, TO> SingleSelector<FROM>.map(mapper: (FROM) -> TO) = map(idFunction(lambda = mapper))
-fun <FROM, TO> OptionalSelector<FROM>.map(mapper: (FROM) -> TO) = map(idFunction(lambda = mapper))
-fun <FROM, TO> ManySelector<FROM>.map(mapper: (FROM) -> TO) = map(idFunction(lambda = mapper))
+fun <FROM, TO> SingleBuilder<FROM>.map(mapper: (FROM) -> TO) = map(idFunction(lambda = mapper))
+fun <FROM, TO> OptionalBuilder<FROM>.map(mapper: (FROM) -> TO) = map(idFunction(lambda = mapper))
+fun <FROM, TO> ManyBuilder<FROM>.map(mapper: (FROM) -> TO) = map(idFunction(lambda = mapper))

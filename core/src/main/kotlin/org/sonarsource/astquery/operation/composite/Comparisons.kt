@@ -20,9 +20,9 @@
 
 package org.sonarsource.astquery.operation.composite
 
-import org.sonarsource.astquery.operation.builder.ManySelector
-import org.sonarsource.astquery.operation.builder.OptionalSelector
-import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.operation.builder.ManyBuilder
+import org.sonarsource.astquery.operation.builder.OptionalBuilder
+import org.sonarsource.astquery.operation.builder.SingleBuilder
 import org.sonarsource.astquery.ir.IdentifiedLambda
 import org.sonarsource.astquery.operation.core.combine
 import org.sonarsource.astquery.operation.core.map
@@ -34,36 +34,36 @@ private fun <T> constantComparator(constant: T, comparator: IdentifiedLambda<(T,
     function = { const: T -> comparator.function(const, constant) }
   )
 
-fun <CUR> SingleSelector<CUR>.compareConst(
+fun <CUR> SingleBuilder<CUR>.compareConst(
   constant: CUR,
   comparator: IdentifiedLambda<(CUR, CUR) -> Boolean>
-): SingleSelector<Boolean> = map(constantComparator(constant, comparator))
+): SingleBuilder<Boolean> = map(constantComparator(constant, comparator))
 
-fun <CUR> OptionalSelector<CUR>.compareConst(
+fun <CUR> OptionalBuilder<CUR>.compareConst(
   constant: CUR,
   comparator: IdentifiedLambda<(CUR, CUR) -> Boolean>
-): OptionalSelector<Boolean> = map(constantComparator(constant, comparator))
+): OptionalBuilder<Boolean> = map(constantComparator(constant, comparator))
 
-fun <CUR> ManySelector<CUR>.compareConst(
+fun <CUR> ManyBuilder<CUR>.compareConst(
   constant: CUR,
   comparator: IdentifiedLambda<(CUR, CUR) -> Boolean>
-): ManySelector<Boolean> = map(constantComparator(constant, comparator))
+): ManyBuilder<Boolean> = map(constantComparator(constant, comparator))
 
 private val equalsFunction = IdentifiedLambda("equals", "Equals") { a: Any?, b: Any? -> a == b }
-infix fun <CUR> SingleSelector<CUR>.eq(other: SingleSelector<CUR>) = combine(other, equalsFunction)
-infix fun <CUR> OptionalSelector<CUR>.eq(other: SingleSelector<CUR>) = combine(other, equalsFunction)
-infix fun <CUR> ManySelector<CUR>.eq(other: SingleSelector<CUR>) = combine(other, equalsFunction)
+infix fun <CUR> SingleBuilder<CUR>.eq(other: SingleBuilder<CUR>) = combine(other, equalsFunction)
+infix fun <CUR> OptionalBuilder<CUR>.eq(other: SingleBuilder<CUR>) = combine(other, equalsFunction)
+infix fun <CUR> ManyBuilder<CUR>.eq(other: SingleBuilder<CUR>) = combine(other, equalsFunction)
 
-infix fun <CUR> SingleSelector<CUR>.eq(constant: CUR) = compareConst(constant, equalsFunction)
-infix fun <CUR> OptionalSelector<CUR>.eq(constant: CUR) = compareConst(constant, equalsFunction)
-infix fun <CUR> ManySelector<CUR>.eq(constant: CUR) = compareConst(constant, equalsFunction)
+infix fun <CUR> SingleBuilder<CUR>.eq(constant: CUR) = compareConst(constant, equalsFunction)
+infix fun <CUR> OptionalBuilder<CUR>.eq(constant: CUR) = compareConst(constant, equalsFunction)
+infix fun <CUR> ManyBuilder<CUR>.eq(constant: CUR) = compareConst(constant, equalsFunction)
 
 private val greaterFunction = IdentifiedLambda("greater", "Greater") { a: Int, b: Int -> a > b }
-infix fun SingleSelector<Int>.gr(other: SingleSelector<Int>) = combine(other, greaterFunction)
-infix fun OptionalSelector<Int>.gr(other: SingleSelector<Int>) = combine(other, greaterFunction)
-infix fun ManySelector<Int>.gr(other: SingleSelector<Int>) = combine(other, greaterFunction)
+infix fun SingleBuilder<Int>.gr(other: SingleBuilder<Int>) = combine(other, greaterFunction)
+infix fun OptionalBuilder<Int>.gr(other: SingleBuilder<Int>) = combine(other, greaterFunction)
+infix fun ManyBuilder<Int>.gr(other: SingleBuilder<Int>) = combine(other, greaterFunction)
 
-infix fun SingleSelector<Int>.gr(constant: Int) = compareConst(constant, greaterFunction)
-infix fun OptionalSelector<Int>.gr(constant: Int) = compareConst(constant, greaterFunction)
-infix fun ManySelector<Int>.gr(constant: Int) = compareConst(constant, greaterFunction)
+infix fun SingleBuilder<Int>.gr(constant: Int) = compareConst(constant, greaterFunction)
+infix fun OptionalBuilder<Int>.gr(constant: Int) = compareConst(constant, greaterFunction)
+infix fun ManyBuilder<Int>.gr(constant: Int) = compareConst(constant, greaterFunction)
 

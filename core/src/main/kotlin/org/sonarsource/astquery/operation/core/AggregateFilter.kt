@@ -26,8 +26,8 @@ import org.sonarsource.astquery.ir.nodes.AggregateDrop
 import org.sonarsource.astquery.ir.nodes.IRNode
 import org.sonarsource.astquery.ir.nodes.ParentNode
 import org.sonarsource.astquery.operation.OperationNtoOptional
-import org.sonarsource.astquery.operation.builder.ManySelector
-import org.sonarsource.astquery.operation.builder.OptionalSelector
+import org.sonarsource.astquery.operation.builder.ManyBuilder
+import org.sonarsource.astquery.operation.builder.OptionalBuilder
 import org.sonarsource.astquery.operation.idFunction
 
 class AggregateDropOperation<FROM, TO>(
@@ -38,9 +38,9 @@ class AggregateDropOperation<FROM, TO>(
   }
 }
 
-fun <IN, OUT> ManySelector<IN>.aggregateFilter(aggregator: IdentifiedFunction<(List<IN>) -> Droppable<OUT>>): OptionalSelector<OUT> {
+fun <IN, OUT> ManyBuilder<IN>.aggregateFilter(aggregator: IdentifiedFunction<(List<IN>) -> Droppable<OUT>>): OptionalBuilder<OUT> {
   return apply(AggregateDropOperation(aggregator))
 }
 
-fun <IN, OUT> ManySelector<IN>.aggregateFilter(aggregator: (List<IN>) -> Droppable<OUT>) =
+fun <IN, OUT> ManyBuilder<IN>.aggregateFilter(aggregator: (List<IN>) -> Droppable<OUT>) =
   aggregateFilter(idFunction(lambda = aggregator))

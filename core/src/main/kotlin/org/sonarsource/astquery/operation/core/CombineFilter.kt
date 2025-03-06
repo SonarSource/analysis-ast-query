@@ -26,14 +26,14 @@ import org.sonarsource.astquery.ir.nodes.CombineDrop
 import org.sonarsource.astquery.ir.nodes.IRNode
 import org.sonarsource.astquery.ir.nodes.ParentNode
 import org.sonarsource.astquery.operation.Operation1toOptional
-import org.sonarsource.astquery.operation.builder.ManySelector
-import org.sonarsource.astquery.operation.builder.OptionalSelector
-import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.operation.builder.ManyBuilder
+import org.sonarsource.astquery.operation.builder.OptionalBuilder
+import org.sonarsource.astquery.operation.builder.SingleBuilder
 import org.sonarsource.astquery.operation.idFunction
 
 class CombineFilterOperation<LEFT, RIGHT, OUT>(
-  private val combined: SingleSelector<RIGHT>,
-  private val combinator: IdentifiedFunction<(LEFT, RIGHT) -> Droppable<OUT>>,
+    private val combined: SingleBuilder<RIGHT>,
+    private val combinator: IdentifiedFunction<(LEFT, RIGHT) -> Droppable<OUT>>,
 ) : Operation1toOptional<LEFT, OUT> {
 
   override fun applyTo(parent: ParentNode<LEFT>): IRNode<*, out OUT> {
@@ -41,38 +41,38 @@ class CombineFilterOperation<LEFT, RIGHT, OUT>(
   }
 }
 
-fun <LEFT, RIGHT, OUT> SingleSelector<LEFT>.combineFilter(
-  other: SingleSelector<RIGHT>,
-  combiner: IdentifiedFunction<(LEFT, RIGHT) -> Droppable<OUT>>,
-): OptionalSelector<OUT> {
+fun <LEFT, RIGHT, OUT> SingleBuilder<LEFT>.combineFilter(
+    other: SingleBuilder<RIGHT>,
+    combiner: IdentifiedFunction<(LEFT, RIGHT) -> Droppable<OUT>>,
+): OptionalBuilder<OUT> {
   return apply(CombineFilterOperation(other.toSingle(), combiner))
 }
 
-fun <LEFT, RIGHT, OUT> OptionalSelector<LEFT>.combineFilter(
-  other: SingleSelector<RIGHT>,
-  combiner: IdentifiedFunction<(LEFT, RIGHT) -> Droppable<OUT>>,
-): OptionalSelector<OUT> {
+fun <LEFT, RIGHT, OUT> OptionalBuilder<LEFT>.combineFilter(
+    other: SingleBuilder<RIGHT>,
+    combiner: IdentifiedFunction<(LEFT, RIGHT) -> Droppable<OUT>>,
+): OptionalBuilder<OUT> {
   return apply(CombineFilterOperation(other.toSingle(), combiner))
 }
 
-fun <LEFT, RIGHT, OUT> ManySelector<LEFT>.combineFilter(
-  other: SingleSelector<RIGHT>,
-  combiner: IdentifiedFunction<(LEFT, RIGHT) -> Droppable<OUT>>,
-): ManySelector<OUT> {
+fun <LEFT, RIGHT, OUT> ManyBuilder<LEFT>.combineFilter(
+    other: SingleBuilder<RIGHT>,
+    combiner: IdentifiedFunction<(LEFT, RIGHT) -> Droppable<OUT>>,
+): ManyBuilder<OUT> {
   return apply(CombineFilterOperation(other.toSingle(), combiner))
 }
 
-fun <LEFT, RIGHT, OUT> SingleSelector<LEFT>.combineFilter(
-  other: SingleSelector<RIGHT>,
-  combiner: (LEFT, RIGHT) -> Droppable<OUT>
+fun <LEFT, RIGHT, OUT> SingleBuilder<LEFT>.combineFilter(
+    other: SingleBuilder<RIGHT>,
+    combiner: (LEFT, RIGHT) -> Droppable<OUT>
 ) = combineFilter(other, idFunction(lambda = combiner))
 
-fun <LEFT, RIGHT, OUT> OptionalSelector<LEFT>.combineFilter(
-  other: SingleSelector<RIGHT>,
-  combiner: (LEFT, RIGHT) -> Droppable<OUT>
+fun <LEFT, RIGHT, OUT> OptionalBuilder<LEFT>.combineFilter(
+    other: SingleBuilder<RIGHT>,
+    combiner: (LEFT, RIGHT) -> Droppable<OUT>
 ) = combineFilter(other, idFunction(lambda = combiner))
 
-fun <LEFT, RIGHT, OUT> ManySelector<LEFT>.combineFilter(
-  other: SingleSelector<RIGHT>,
-  combiner: (LEFT, RIGHT) -> Droppable<OUT>
+fun <LEFT, RIGHT, OUT> ManyBuilder<LEFT>.combineFilter(
+    other: SingleBuilder<RIGHT>,
+    combiner: (LEFT, RIGHT) -> Droppable<OUT>
 ) = combineFilter(other, idFunction(lambda = combiner))

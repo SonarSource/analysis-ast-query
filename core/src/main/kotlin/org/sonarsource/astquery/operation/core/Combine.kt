@@ -25,14 +25,14 @@ import org.sonarsource.astquery.ir.nodes.Combine
 import org.sonarsource.astquery.ir.nodes.IRNode
 import org.sonarsource.astquery.ir.nodes.ParentNode
 import org.sonarsource.astquery.operation.Operation1to1
-import org.sonarsource.astquery.operation.builder.ManySelector
-import org.sonarsource.astquery.operation.builder.OptionalSelector
-import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.operation.builder.ManyBuilder
+import org.sonarsource.astquery.operation.builder.OptionalBuilder
+import org.sonarsource.astquery.operation.builder.SingleBuilder
 import org.sonarsource.astquery.operation.idFunction
 
 class CombineOperation<LEFT, RIGHT, OUT>(
-  private val combined: SingleSelector<RIGHT>,
-  private val combinator: IdentifiedFunction<(LEFT, RIGHT) -> OUT>,
+    private val combined: SingleBuilder<RIGHT>,
+    private val combinator: IdentifiedFunction<(LEFT, RIGHT) -> OUT>,
 ) : Operation1to1<LEFT, OUT> {
 
   override fun applyTo(parent: ParentNode<LEFT>): IRNode<*, out OUT> {
@@ -40,38 +40,38 @@ class CombineOperation<LEFT, RIGHT, OUT>(
   }
 }
 
-fun <LEFT, RIGHT, OUT> SingleSelector<LEFT>.combine(
-  other: SingleSelector<RIGHT>,
-  combiner: IdentifiedFunction<(LEFT, RIGHT) -> OUT>,
-): SingleSelector<OUT> {
+fun <LEFT, RIGHT, OUT> SingleBuilder<LEFT>.combine(
+    other: SingleBuilder<RIGHT>,
+    combiner: IdentifiedFunction<(LEFT, RIGHT) -> OUT>,
+): SingleBuilder<OUT> {
   return apply(CombineOperation(other.toSingle(), combiner))
 }
 
-fun <LEFT, RIGHT, OUT> OptionalSelector<LEFT>.combine(
-  other: SingleSelector<RIGHT>,
-  combiner: IdentifiedFunction<(LEFT, RIGHT) -> OUT>,
-): OptionalSelector<OUT> {
+fun <LEFT, RIGHT, OUT> OptionalBuilder<LEFT>.combine(
+    other: SingleBuilder<RIGHT>,
+    combiner: IdentifiedFunction<(LEFT, RIGHT) -> OUT>,
+): OptionalBuilder<OUT> {
   return apply(CombineOperation(other.toSingle(), combiner))
 }
 
-fun <LEFT, RIGHT, OUT> ManySelector<LEFT>.combine(
-  other: SingleSelector<RIGHT>,
-  combiner: IdentifiedFunction<(LEFT, RIGHT) -> OUT>,
-): ManySelector<OUT> {
+fun <LEFT, RIGHT, OUT> ManyBuilder<LEFT>.combine(
+    other: SingleBuilder<RIGHT>,
+    combiner: IdentifiedFunction<(LEFT, RIGHT) -> OUT>,
+): ManyBuilder<OUT> {
   return apply(CombineOperation(other.toSingle(), combiner))
 }
 
-fun <LEFT, RIGHT, OUT> SingleSelector<LEFT>.combine(
-  other: SingleSelector<RIGHT>,
-  combiner: (LEFT, RIGHT) -> OUT
+fun <LEFT, RIGHT, OUT> SingleBuilder<LEFT>.combine(
+    other: SingleBuilder<RIGHT>,
+    combiner: (LEFT, RIGHT) -> OUT
 ) = combine(other, idFunction(lambda = combiner))
 
-fun <LEFT, RIGHT, OUT> OptionalSelector<LEFT>.combine(
-  other: SingleSelector<RIGHT>,
-  combiner: (LEFT, RIGHT) -> OUT
+fun <LEFT, RIGHT, OUT> OptionalBuilder<LEFT>.combine(
+    other: SingleBuilder<RIGHT>,
+    combiner: (LEFT, RIGHT) -> OUT
 ) = combine(other, idFunction(lambda = combiner))
 
-fun <LEFT, RIGHT, OUT> ManySelector<LEFT>.combine(
-  other: SingleSelector<RIGHT>,
-  combiner: (LEFT, RIGHT) -> OUT
+fun <LEFT, RIGHT, OUT> ManyBuilder<LEFT>.combine(
+    other: SingleBuilder<RIGHT>,
+    combiner: (LEFT, RIGHT) -> OUT
 ) = combine(other, idFunction(lambda = combiner))

@@ -21,17 +21,17 @@
 package org.sonarsource.astquery.operation.core
 
 import org.sonarsource.astquery.ir.IdentifiedFunction
-import org.sonarsource.astquery.operation.builder.ManySelector
-import org.sonarsource.astquery.operation.builder.OptionalSelector
-import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.operation.builder.ManyBuilder
+import org.sonarsource.astquery.operation.builder.OptionalBuilder
+import org.sonarsource.astquery.operation.builder.SingleBuilder
 
-fun <FROM, TO> SingleSelector<FROM>.mapNonNull(mapper: IdentifiedFunction<(FROM) -> TO?>) =
+fun <FROM, TO> SingleBuilder<FROM>.mapNonNull(mapper: IdentifiedFunction<(FROM) -> TO?>) =
   map(mapper).filterNonNull()
-fun <FROM, TO> OptionalSelector<FROM>.mapNonNull(mapper: IdentifiedFunction<(FROM) -> TO?>) =
+fun <FROM, TO> OptionalBuilder<FROM>.mapNonNull(mapper: IdentifiedFunction<(FROM) -> TO?>) =
   map(mapper).filterNonNull()
-fun <FROM, TO> ManySelector<FROM>.mapNonNull(mapper: IdentifiedFunction<(FROM) -> TO?>) =
+fun <FROM, TO> ManyBuilder<FROM>.mapNonNull(mapper: IdentifiedFunction<(FROM) -> TO?>) =
   map(mapper).filterNonNull()
 
-fun <FROM, TO> SingleSelector<FROM>.mapNonNull(mapper: (FROM) -> TO?) = map(mapper).filterNonNull()
-fun <FROM, TO> OptionalSelector<FROM>.mapNonNull(mapper: (FROM) -> TO?) = map(mapper).filterNonNull()
-fun <FROM, TO> ManySelector<FROM>.mapNonNull(mapper: (FROM) -> TO?) = map(mapper).filterNonNull()
+fun <FROM, TO> SingleBuilder<FROM>.mapNonNull(mapper: (FROM) -> TO?) = map(mapper).filterNonNull()
+fun <FROM, TO> OptionalBuilder<FROM>.mapNonNull(mapper: (FROM) -> TO?) = map(mapper).filterNonNull()
+fun <FROM, TO> ManyBuilder<FROM>.mapNonNull(mapper: (FROM) -> TO?) = map(mapper).filterNonNull()

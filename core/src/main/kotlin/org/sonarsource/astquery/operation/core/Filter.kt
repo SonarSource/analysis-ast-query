@@ -25,9 +25,9 @@ import org.sonarsource.astquery.ir.nodes.Filter
 import org.sonarsource.astquery.ir.nodes.IRNode
 import org.sonarsource.astquery.ir.nodes.ParentNode
 import org.sonarsource.astquery.operation.Operation1toOptional
-import org.sonarsource.astquery.operation.builder.ManySelector
-import org.sonarsource.astquery.operation.builder.OptionalSelector
-import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.operation.builder.ManyBuilder
+import org.sonarsource.astquery.operation.builder.OptionalBuilder
+import org.sonarsource.astquery.operation.builder.SingleBuilder
 import org.sonarsource.astquery.operation.idFunction
 
 class FilterOperation<T>(
@@ -38,23 +38,23 @@ class FilterOperation<T>(
   }
 }
 
-fun <CUR> SingleSelector<CUR>.filter(predicate: IdentifiedFunction<(CUR) -> Boolean>): OptionalSelector<CUR> {
+fun <CUR> SingleBuilder<CUR>.filter(predicate: IdentifiedFunction<(CUR) -> Boolean>): OptionalBuilder<CUR> {
   return apply(FilterOperation(predicate))
 }
 
-fun <CUR> OptionalSelector<CUR>.filter(predicate: IdentifiedFunction<(CUR) -> Boolean>): OptionalSelector<CUR> {
+fun <CUR> OptionalBuilder<CUR>.filter(predicate: IdentifiedFunction<(CUR) -> Boolean>): OptionalBuilder<CUR> {
   return apply(FilterOperation(predicate))
 }
 
-fun <CUR> ManySelector<CUR>.filter(predicate: IdentifiedFunction<(CUR) -> Boolean>): ManySelector<CUR> {
+fun <CUR> ManyBuilder<CUR>.filter(predicate: IdentifiedFunction<(CUR) -> Boolean>): ManyBuilder<CUR> {
   return apply(FilterOperation(predicate))
 }
 
-fun <CUR> SingleSelector<CUR>.filter(predicate: (CUR) -> Boolean) =
+fun <CUR> SingleBuilder<CUR>.filter(predicate: (CUR) -> Boolean) =
   filter(idFunction(lambda = predicate))
 
-fun <CUR> OptionalSelector<CUR>.filter(predicate: (CUR) -> Boolean) =
+fun <CUR> OptionalBuilder<CUR>.filter(predicate: (CUR) -> Boolean) =
   filter(idFunction(lambda = predicate))
 
-fun <CUR> ManySelector<CUR>.filter(predicate: (CUR) -> Boolean) =
+fun <CUR> ManyBuilder<CUR>.filter(predicate: (CUR) -> Boolean) =
   filter(idFunction(lambda = predicate))

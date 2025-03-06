@@ -21,16 +21,21 @@
 package org.sonarsource.astquery.operation.builder
 
 import org.sonarsource.astquery.ir.nodes.IRNode
-import org.sonarsource.astquery.operation.Operation1toN
+import org.sonarsource.astquery.operation.Operation1to1
+import org.sonarsource.astquery.operation.Operation1toOptional
 
-sealed class Selector<CUR, OUT>(
-  val irNode: IRNode<*, out CUR>
-) {
+class SingleBuilder<CUR>(
+  current: IRNode<*, out CUR>
+) : PipelineBuilder<CUR, CUR>(current) {
 
-  fun <TO> apply(op: Operation1toN<in CUR, TO>): ManySelector<TO> =
-    ManySelector(op.applyTo(irNode))
+  fun <TO> apply(op: Operation1to1<in CUR, TO>): SingleBuilder<TO> =
+    SingleBuilder(op.applyTo(irNode))
 
-  abstract fun toOutput(current: List<CUR>): OUT
+  fun <TO> apply(op: Operation1toOptional<in CUR, TO>): OptionalBuilder<TO> =
+    OptionalBuilder(op.applyTo(irNode))
 
-  abstract fun toSingle(): SingleSelector<OUT>
+  override fun toOutput(current: List<CUR>): CUR =
+    current.singleOrNull() ?: throw IllegalStateException("The query produced more elements than expected")
+
+  override fun toSingle(): SingleBuilder<CUR> = this
 }

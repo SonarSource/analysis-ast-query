@@ -20,26 +20,31 @@
 
 package org.sonarsource.astquery.operation.builder
 
+import org.sonarsource.astquery.ir.identity
+import org.sonarsource.astquery.ir.nodes.Aggregate
 import org.sonarsource.astquery.ir.nodes.IRNode
 import org.sonarsource.astquery.operation.Operation1to1
 import org.sonarsource.astquery.operation.Operation1toOptional
 import org.sonarsource.astquery.operation.OperationNto1
-import org.sonarsource.astquery.operation.composite.orElseNull
+import org.sonarsource.astquery.operation.OperationNtoOptional
 
-class OptionalSelector<CUR>(
+class ManyBuilder<CUR>(
   current: IRNode<*, out CUR>
-) : Selector<CUR, CUR?>(current) {
+) : PipelineBuilder<CUR, List<CUR>>(current) {
 
-  fun <TO> apply(op: Operation1to1<in CUR, TO>): OptionalSelector<TO> =
-    OptionalSelector(op.applyTo(irNode))
+  fun <TO> apply(op: Operation1to1<in CUR, TO>): ManyBuilder<TO> =
+    ManyBuilder(op.applyTo(irNode))
 
-  fun <TO> apply(op: Operation1toOptional<in CUR, TO>): OptionalSelector<TO> =
-    OptionalSelector(op.applyTo(irNode))
+  fun <TO> apply(op: Operation1toOptional<in CUR, TO>): ManyBuilder<TO> =
+    ManyBuilder(op.applyTo(irNode))
 
-  fun <TO> apply(op: OperationNto1<in CUR, TO>): SingleSelector<TO> =
-    SingleSelector(op.applyTo(irNode))
+  fun <TO> apply(op: OperationNto1<in CUR, TO>): SingleBuilder<TO> =
+    SingleBuilder(op.applyTo(irNode))
 
-  override fun toOutput(current: List<CUR>): CUR? = current.singleOrNull()
+  fun <TO> apply(op: OperationNtoOptional<in CUR, TO>): OptionalBuilder<TO> =
+    OptionalBuilder(op.applyTo(irNode))
 
-  override fun toSingle(): SingleSelector<CUR?> = orElseNull()
+  override fun toOutput(current: List<CUR>): List<CUR> = current.toList()
+
+  override fun toSingle(): SingleBuilder<List<CUR>> = SingleBuilder(Aggregate(irNode, identity("toSingle")))
 }

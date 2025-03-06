@@ -20,25 +20,25 @@
 
 package org.sonarsource.astquery.operation.composite
 
-import org.sonarsource.astquery.operation.builder.ManySelector
-import org.sonarsource.astquery.operation.builder.OptionalSelector
-import org.sonarsource.astquery.operation.builder.SingleSelector
+import org.sonarsource.astquery.operation.builder.ManyBuilder
+import org.sonarsource.astquery.operation.builder.OptionalBuilder
+import org.sonarsource.astquery.operation.builder.SingleBuilder
 import org.sonarsource.astquery.ir.FirstFunction
 import org.sonarsource.astquery.ir.FirstOrDefaultFunction
 import org.sonarsource.astquery.operation.core.aggregate
 import org.sonarsource.astquery.operation.core.aggregateFilter
 
-fun <CUR> ManySelector<CUR>.first(): OptionalSelector<CUR> =
+fun <CUR> ManyBuilder<CUR>.first(): OptionalBuilder<CUR> =
   aggregateFilter(FirstFunction())
 
-fun <OUT> OptionalSelector<out OUT>.orElse(default: OUT): SingleSelector<OUT> =
+fun <OUT> OptionalBuilder<out OUT>.orElse(default: OUT): SingleBuilder<OUT> =
   aggregate(FirstOrDefaultFunction(default))
 
-fun <CUR> OptionalSelector<CUR>.orElseNull(): SingleSelector<CUR?> =
+fun <CUR> OptionalBuilder<CUR>.orElseNull(): SingleBuilder<CUR?> =
   aggregate(FirstOrDefaultFunction(null))
 
-fun <OUT> ManySelector<out OUT>.firstOrElse(default: OUT): SingleSelector<OUT> =
+fun <OUT> ManyBuilder<out OUT>.firstOrElse(default: OUT): SingleBuilder<OUT> =
   aggregate(FirstOrDefaultFunction(default))
 
-fun <CUR> ManySelector<CUR>.firstOrNull(): SingleSelector<CUR?> =
+fun <CUR> ManyBuilder<CUR>.firstOrNull(): SingleBuilder<CUR?> =
   aggregate(FirstOrDefaultFunction(null))
