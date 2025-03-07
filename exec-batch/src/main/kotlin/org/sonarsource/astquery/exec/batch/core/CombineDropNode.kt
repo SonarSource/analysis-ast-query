@@ -20,16 +20,16 @@
 
 package org.sonarsource.astquery.exec.batch.core
 
-import org.sonarsource.astquery.operation.Droppable
-import org.sonarsource.astquery.graph.NodeId
 import org.sonarsource.astquery.exec.ExecutionContext
 import org.sonarsource.astquery.exec.Store
 import org.sonarsource.astquery.exec.batch.BatchNode
 import org.sonarsource.astquery.exec.batch.ChildNode
 import org.sonarsource.astquery.exec.batch.MergeSignalHelper
 import org.sonarsource.astquery.exec.batch.Signal
+import org.sonarsource.astquery.graph.NodeId
 import org.sonarsource.astquery.graph.visual.FlowType
 import org.sonarsource.astquery.graph.visual.VisualInfo
+import org.sonarsource.astquery.operation.Droppable
 
 class CombineDropNode<LT, RT, OUT>(
   id: NodeId,

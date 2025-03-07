@@ -20,11 +20,11 @@
 
 package org.sonarsource.astquery.exec.greedy
 
-import org.sonarsource.astquery.graph.Node
-import org.sonarsource.astquery.graph.NodeId
 import org.sonarsource.astquery.exec.ExecutionContext
 import org.sonarsource.astquery.exec.Store
 import org.sonarsource.astquery.exec.greedy.Signal.BatchEnd
+import org.sonarsource.astquery.graph.Node
+import org.sonarsource.astquery.graph.NodeId
 import org.sonarsource.astquery.graph.visual.FlowType
 import org.sonarsource.astquery.graph.visual.VisualInfo
 

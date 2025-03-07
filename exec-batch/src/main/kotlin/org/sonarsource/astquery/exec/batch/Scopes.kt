@@ -20,8 +20,8 @@
 
 package org.sonarsource.astquery.exec.batch
 
-import org.sonarsource.astquery.graph.ScopeId
 import org.sonarsource.astquery.exec.batch.core.ScopeNode
+import org.sonarsource.astquery.graph.ScopeId
 
 data class Scopes(
   private val scopes: Map<ScopeId, Any?> = emptyMap()

@@ -10,13 +10,7 @@ import org.sonarsource.astquery.exec.greedy.NodeCreator.createNotExistsNode
 import org.sonarsource.astquery.exec.transformation.MergeEquivalentChildren
 import org.sonarsource.astquery.exec.transformation.RemoveUnusedNodes
 import org.sonarsource.astquery.exec.transformation.Transformation
-import org.sonarsource.astquery.ir.CountFunction
-import org.sonarsource.astquery.ir.ExistFunction
-import org.sonarsource.astquery.ir.FirstFunction
-import org.sonarsource.astquery.ir.FirstOrDefaultFunction
-import org.sonarsource.astquery.ir.IR
-import org.sonarsource.astquery.ir.IdentifiedNodeFunction
-import org.sonarsource.astquery.ir.NotExistFunction
+import org.sonarsource.astquery.ir.*
 import org.sonarsource.astquery.ir.nodes.Aggregate
 import kotlin.reflect.KClass
 

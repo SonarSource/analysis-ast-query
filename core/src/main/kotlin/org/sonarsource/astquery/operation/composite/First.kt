@@ -1,6 +1,5 @@
 /*
- * SonarQube Java
- * Copyright (C) 2012-2024 SonarSource SA
+ * Copyright (C) 2018-2025 SonarSource SA
  * mailto:info AT sonarsource DOT com
  *
  * This program is free software; you can redistribute it and/or
@@ -17,14 +16,13 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 package org.sonarsource.astquery.operation.composite
 
+import org.sonarsource.astquery.ir.FirstFunction
+import org.sonarsource.astquery.ir.FirstOrDefaultFunction
 import org.sonarsource.astquery.operation.builder.ManyBuilder
 import org.sonarsource.astquery.operation.builder.OptionalBuilder
 import org.sonarsource.astquery.operation.builder.SingleBuilder
-import org.sonarsource.astquery.ir.FirstFunction
-import org.sonarsource.astquery.ir.FirstOrDefaultFunction
 import org.sonarsource.astquery.operation.core.aggregate
 import org.sonarsource.astquery.operation.core.aggregateFilter
 

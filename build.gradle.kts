@@ -5,10 +5,51 @@ plugins {
     java
     id("jacoco")
     kotlin("jvm")
+    id("com.diffplug.spotless") version "6.11.0"
     `maven-publish`
 }
 
 val projectTitle: String by project
+
+
+
+configure(subprojects) {
+    apply(plugin = "com.diffplug.spotless")
+
+    configure<com.diffplug.gradle.spotless.SpotlessExtension> {
+
+        lineEndings = com.diffplug.spotless.LineEnding.UNIX
+
+        fun SourceSet.findSourceFilesToTarget() = allJava.srcDirs.flatMap { srcDir ->
+            project.fileTree(srcDir).filter { file ->
+                file.name.endsWith(".kt") || (file.name.endsWith(".java") && file.name != "package-info.java")
+            }
+        }
+
+        kotlin {
+            licenseHeaderFile(rootProject.file("LICENSE_HEADER")).updateYearWithLatest(true)
+
+            target(
+                project.sourceSets.main.get().findSourceFilesToTarget(),
+                project.sourceSets.test.get().findSourceFilesToTarget()
+            )
+        }
+        kotlinGradle {
+            target("*.gradle.kts")
+            ktlint()
+        }
+
+        format("misc") {
+            // define the files to apply `misc` to
+            target("*.gradle", "*.md", ".gitignore")
+
+            // define the steps to apply to those files
+            trimTrailingWhitespace()
+            indentWithSpaces()
+            endWithNewline()
+        }
+    }
+}
 
 allprojects {
     apply<JavaPlugin>()

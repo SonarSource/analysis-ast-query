@@ -20,16 +20,13 @@
 
 package org.sonarsource.astquery.exec.greedy.specialized.first
 
-import org.sonarsource.astquery.graph.NodeId
 import org.sonarsource.astquery.exec.ExecutionContext
-import org.sonarsource.astquery.exec.greedy.GreedyNode
 import org.sonarsource.astquery.exec.greedy.ChildNode
-import org.sonarsource.astquery.exec.greedy.GreedyBuildCtx
+import org.sonarsource.astquery.exec.greedy.GreedyNode
 import org.sonarsource.astquery.exec.greedy.Signal
+import org.sonarsource.astquery.graph.NodeId
 import org.sonarsource.astquery.graph.visual.FlowType
 import org.sonarsource.astquery.graph.visual.VisualInfo
-import org.sonarsource.astquery.ir.FirstOrDefaultFunction
-import org.sonarsource.astquery.ir.nodes.Aggregate
 
 class FirstOrDefaultNode<IN>(
   id: NodeId,

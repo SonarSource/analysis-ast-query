@@ -1,9 +1,9 @@
 package org.sonarsource.astquery.exec.batch
 
-import org.sonarsource.astquery.ir.IR
 import org.sonarsource.astquery.exec.transformation.Transformation
 import org.sonarsource.astquery.graph.Graph
 import org.sonarsource.astquery.graph.GraphUtils
+import org.sonarsource.astquery.ir.IR
 import org.sonarsource.astquery.ir.nodes.Scope
 import org.sonarsource.astquery.ir.nodes.Unscope
 

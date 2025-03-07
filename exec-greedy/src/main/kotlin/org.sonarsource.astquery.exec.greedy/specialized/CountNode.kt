@@ -20,12 +20,12 @@
 
 package org.sonarsource.astquery.exec.greedy.specialized
 
-import org.sonarsource.astquery.graph.NodeId
 import org.sonarsource.astquery.exec.ExecutionContext
 import org.sonarsource.astquery.exec.Store
-import org.sonarsource.astquery.exec.greedy.GreedyNode
 import org.sonarsource.astquery.exec.greedy.ChildNode
+import org.sonarsource.astquery.exec.greedy.GreedyNode
 import org.sonarsource.astquery.exec.greedy.Signal
+import org.sonarsource.astquery.graph.NodeId
 import org.sonarsource.astquery.graph.visual.FlowType
 import org.sonarsource.astquery.graph.visual.VisualInfo
 

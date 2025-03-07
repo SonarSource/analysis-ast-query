@@ -1,6 +1,5 @@
 /*
- * SonarQube Java
- * Copyright (C) 2012-2024 SonarSource SA
+ * Copyright (C) 2018-2025 SonarSource SA
  * mailto:info AT sonarsource DOT com
  *
  * This program is free software; you can redistribute it and/or
@@ -17,16 +16,14 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 package org.sonarsource.astquery.ir.nodes
 
 import org.sonarsource.astquery.graph.Node
 import org.sonarsource.astquery.graph.NodeId
-import org.sonarsource.astquery.ir.ResettableLazy
 import org.sonarsource.astquery.graph.TranslationTable
 import org.sonarsource.astquery.graph.visual.FlowType
 import org.sonarsource.astquery.graph.visual.VisualInfo
-import kotlin.collections.Map
+import org.sonarsource.astquery.ir.ResettableLazy
 
 typealias ParentNode<T> = IRNode<*, out T>
 typealias ChildNode<T> = IRNode<in T, *>

@@ -1,6 +1,5 @@
 /*
- * SonarQube Java
- * Copyright (C) 2012-2024 SonarSource SA
+ * Copyright (C) 2018-2025 SonarSource SA
  * mailto:info AT sonarsource DOT com
  *
  * This program is free software; you can redistribute it and/or
@@ -17,14 +16,13 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 package org.sonarsource.astquery.ir.nodes
 
-import org.sonarsource.astquery.operation.Droppable
-import org.sonarsource.astquery.ir.IdentifiedFunction
 import org.sonarsource.astquery.graph.TranslationTable
 import org.sonarsource.astquery.graph.visual.FlowType
 import org.sonarsource.astquery.graph.visual.VisualInfo
+import org.sonarsource.astquery.ir.IdentifiedFunction
+import org.sonarsource.astquery.operation.Droppable
 
 class CombineDrop<LT, RT, OUT>(
   var left: ParentNode<LT>,

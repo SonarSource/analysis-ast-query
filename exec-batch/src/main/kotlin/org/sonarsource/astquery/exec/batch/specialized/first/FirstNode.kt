@@ -20,11 +20,11 @@
 
 package org.sonarsource.astquery.exec.batch.specialized.first
 
-import org.sonarsource.astquery.graph.NodeId
 import org.sonarsource.astquery.exec.ExecutionContext
 import org.sonarsource.astquery.exec.batch.BatchNode
 import org.sonarsource.astquery.exec.batch.ChildNode
 import org.sonarsource.astquery.exec.batch.Signal
+import org.sonarsource.astquery.graph.NodeId
 import org.sonarsource.astquery.graph.visual.FlowType
 import org.sonarsource.astquery.graph.visual.VisualInfo
 

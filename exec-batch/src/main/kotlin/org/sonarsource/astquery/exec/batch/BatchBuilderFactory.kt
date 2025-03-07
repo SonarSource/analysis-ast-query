@@ -1,22 +1,16 @@
 package org.sonarsource.astquery.exec.batch
 
-import org.sonarsource.astquery.exec.build.BuilderFactory
-import org.sonarsource.astquery.exec.build.NodeFunctionRegistry
 import org.sonarsource.astquery.exec.batch.NodeCreator.createCountNode
 import org.sonarsource.astquery.exec.batch.NodeCreator.createExistsNode
 import org.sonarsource.astquery.exec.batch.NodeCreator.createFirstNode
 import org.sonarsource.astquery.exec.batch.NodeCreator.createFirstOrDefaultNode
 import org.sonarsource.astquery.exec.batch.NodeCreator.createNotExistsNode
+import org.sonarsource.astquery.exec.build.BuilderFactory
+import org.sonarsource.astquery.exec.build.NodeFunctionRegistry
 import org.sonarsource.astquery.exec.transformation.MergeEquivalentChildren
 import org.sonarsource.astquery.exec.transformation.RemoveUnusedNodes
 import org.sonarsource.astquery.exec.transformation.Transformation
-import org.sonarsource.astquery.ir.CountFunction
-import org.sonarsource.astquery.ir.ExistFunction
-import org.sonarsource.astquery.ir.FirstFunction
-import org.sonarsource.astquery.ir.FirstOrDefaultFunction
-import org.sonarsource.astquery.ir.IR
-import org.sonarsource.astquery.ir.IdentifiedNodeFunction
-import org.sonarsource.astquery.ir.NotExistFunction
+import org.sonarsource.astquery.ir.*
 import org.sonarsource.astquery.ir.nodes.Aggregate
 import kotlin.reflect.KClass
 

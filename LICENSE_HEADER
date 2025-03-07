@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2025 SonarSource SA
+ * Copyright (C) 2018-$YEAR SonarSource SA
  * mailto:info AT sonarsource DOT com
  *
  * This program is free software; you can redistribute it and/or
@@ -16,26 +16,3 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonarsource.astquery.graph.visual
-
-enum class FlowType {
-  Single, Opt, Many, ERR;
-
-  infix operator fun plus(other: FlowType): FlowType {
-    return when {
-      this == ERR || other == ERR -> ERR
-      this == Single && other == Single -> Single
-      this == Many || other == Many -> Many
-      else -> Opt
-    }
-  }
-
-  infix operator fun minus(other: FlowType): FlowType {
-    return when {
-      this == ERR || other == ERR -> ERR
-      this == Many && other == Many -> Many
-      this == Single || other == Single -> Single
-      else -> Opt
-    }
-  }
-}

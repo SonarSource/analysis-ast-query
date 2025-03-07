@@ -1,9 +1,9 @@
 package org.sonarsource.astquery.exec.greedy.core
 
-import org.sonarsource.astquery.graph.ScopeId
 import org.sonarsource.astquery.exec.greedy.Signal
 import org.sonarsource.astquery.exec.greedy.Signal.BatchEnd
 import org.sonarsource.astquery.exec.greedy.Signal.Value
+import org.sonarsource.astquery.graph.ScopeId
 
 enum class Side(val value: String) {
   LEFT("left"), RIGHT("right")

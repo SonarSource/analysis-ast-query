@@ -24,29 +24,16 @@ import org.sonarsource.astquery.exec.Executable
 import org.sonarsource.astquery.exec.build.BuildCtx
 import org.sonarsource.astquery.exec.build.GraphExecBuilder
 import org.sonarsource.astquery.exec.build.NodeFunctionRegistry
-import org.sonarsource.astquery.graph.NodeId
 import org.sonarsource.astquery.exec.greedy.core.*
 import org.sonarsource.astquery.exec.transformation.Transformation
 import org.sonarsource.astquery.graph.Node
+import org.sonarsource.astquery.graph.NodeId
 import org.sonarsource.astquery.graph.ScopeId
 import org.sonarsource.astquery.ir.IR
 import org.sonarsource.astquery.ir.IdentifiedLambda
 import org.sonarsource.astquery.ir.IdentifiedNodeFunction
-import org.sonarsource.astquery.ir.nodes.Aggregate
-import org.sonarsource.astquery.ir.nodes.AggregateDrop
-import org.sonarsource.astquery.ir.nodes.Combine
-import org.sonarsource.astquery.ir.nodes.CombineDrop
-import org.sonarsource.astquery.ir.nodes.Consumer
-import org.sonarsource.astquery.ir.nodes.Filter
-import org.sonarsource.astquery.ir.nodes.FilterNonNull
-import org.sonarsource.astquery.ir.nodes.FilterType
-import org.sonarsource.astquery.ir.nodes.FlatMap
-import org.sonarsource.astquery.ir.nodes.IRMap
-import org.sonarsource.astquery.ir.nodes.IRNode
-import org.sonarsource.astquery.ir.nodes.Root
-import org.sonarsource.astquery.ir.nodes.Scope
-import org.sonarsource.astquery.ir.nodes.Unscope
-import org.sonarsource.astquery.ir.nodes.Union
+import org.sonarsource.astquery.ir.nodes.*
+
 class GreedyBuildCtx : BuildCtx {
 
   val translatedMap = mutableMapOf<NodeId, GreedyNode<*, *>>()

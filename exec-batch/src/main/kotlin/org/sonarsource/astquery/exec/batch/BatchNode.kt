@@ -20,9 +20,9 @@
 
 package org.sonarsource.astquery.exec.batch
 
+import org.sonarsource.astquery.exec.ExecutionContext
 import org.sonarsource.astquery.graph.Node
 import org.sonarsource.astquery.graph.NodeId
-import org.sonarsource.astquery.exec.ExecutionContext
 import org.sonarsource.astquery.graph.visual.FlowType
 import org.sonarsource.astquery.graph.visual.VisualInfo
 
